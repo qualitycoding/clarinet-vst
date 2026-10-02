@@ -28,6 +28,7 @@ FetchContent_Declare(JUCE
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(nlohmann_json)
 add_subdirectory(core)
+add_subdirectory(tools/render)
 
 if(CLAR_BUILD_TESTS)
   FetchContent_MakeAvailable(Catch2)
