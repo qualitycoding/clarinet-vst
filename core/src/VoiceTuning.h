@@ -17,7 +17,7 @@ inline constexpr double kZetaSpan        = 0.15;  // + span * (0.5 - hardness): 
 inline constexpr double kZetaMin         = 0.25;
 inline constexpr double kZetaMax         = 0.45;
 inline constexpr double kQrBase          = 0.70;  // lip damping: avoids squeaks at normal playing (C-022)
-inline constexpr double kQrOverblowDrop  = 0.40;  // tighter embouchure with Overblow
+inline constexpr double kQrOverblowDrop  = 0.20;  // tighter embouchure with Overblow (0.40 left 5/14 low notes in R1 at o = 1, S-011)
 inline constexpr double kQrMin           = 0.25;
 inline constexpr double kAttackTauBase   = 0.008; // s, tanh ramp time constant (spikes C4/C9: 3..30 ms robust)
 inline constexpr double kAttackTauShrink = 0.80;  // attack shortened by up to this fraction with Overblow
@@ -33,6 +33,8 @@ inline constexpr double kKappaStart  = 0.6;        // mode-1 damping starts abov
 inline constexpr double kKappaMax    = 10.0;       // x10 first-mode bandwidth at o = 1 (C-033)
 inline constexpr double kKappaForced = 10.0;       // overblown-fingering switch (D-007)
 inline constexpr double kShelfOverblowDb = 3.0;    // brightness shelf boost at o = 1
+inline constexpr double kTiltHz = 600.0;          // Overblow tilt shelf corner (low enough to move the centroid of low notes)
+inline constexpr double kTiltOverblowDb = 9.0;    // tilt shelf boost at o = 1
 inline constexpr double kNoiseOverblowGain = 1.0;  // breath-noise gain *= 1 + gain * o
 
 // --- output stage (D-014) ---

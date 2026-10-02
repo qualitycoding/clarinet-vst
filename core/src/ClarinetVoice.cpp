@@ -191,8 +191,8 @@ struct ClarinetVoice::Impl {
     // ---- output stage ----
     OnePoleHP hp, noiseHp, dcBlock;
     OnePoleLP noiseLp;
-    Biquad lattice, bell, shelf;
-    double lastShelfDb = 1e9;
+    Biquad lattice, bell, shelf, tilt;
+    double lastShelfDb = 1e9, lastTiltDb = 1e9;
     std::uint32_t noiseState = 0x5A5A5A5Au;
     double flowAvg = 0.0;
 
@@ -256,7 +256,7 @@ struct ClarinetVoice::Impl {
         attackT = 0.0; inAttack = false; gSm = 0.0; relGain = 1.0; velGain = 1.0; quietT = 0.0;
         gammaStart = gammaEnd = 0.0; vibPhase = 0.0; flowAvg = 0.0;
         hp.reset(); noiseHp.reset(); noiseLp.reset(); dcBlock.reset();
-        lattice.reset(); bell.reset(); shelf.reset(); lastShelfDb = 1e9;
+        lattice.reset(); bell.reset(); shelf.reset(); tilt.reset(); tilt.reset(); lastShelfDb = 1e9; lastTiltDb = 1e9;
         for (auto& s : stages) s.reset();
         noiseState = 0x5A5A5A5Au;
     }
@@ -312,7 +312,7 @@ struct ClarinetVoice::Impl {
                 for (int i = 0; i < kMaxModes; ++i) pnr[i] = pni[i] = 0.0;
                 x = xp = 0.0; M = 0;
                 for (auto& s : stages) s.reset();
-                hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset();
+                hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset(); tilt.reset();
                 noiseHp.reset(); noiseLp.reset();
             }
             attackT = 0.0; inAttack = true; relGain = 1.0;
@@ -367,7 +367,7 @@ struct ClarinetVoice::Impl {
         for (int i = 0; i < kMaxModes; ++i) pnr[i] = pni[i] = 0.0;
         x = xp = 0.0; M = 0; gSm = 0.0; gammaStart = gammaEnd = 0.0;
         for (auto& s : stages) s.reset();
-        hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset(); noiseHp.reset(); noiseLp.reset();
+        hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset(); tilt.reset(); noiseHp.reset(); noiseLp.reset();
         publish();
     }
 
@@ -381,6 +381,8 @@ struct ClarinetVoice::Impl {
     void setShelf() noexcept {
         const double dB = tuning::kShelfDbMin + tuning::kShelfDbSpan * smBright + tuning::kShelfOverblowDb * smOverblow;
         if (std::fabs(dB - lastShelfDb) > 0.01) { shelf.highShelf(fs, tuning::kShelfHz, dB); lastShelfDb = dB; }
+        const double tiltDb = tuning::kTiltOverblowDb * smOverblow;
+        if (std::fabs(tiltDb - lastTiltDb) > 0.01) { tilt.highShelf(fs, tuning::kTiltHz, tiltDb); lastTiltDb = tiltDb; }
     }
 
     void rebuildEffective() noexcept {
@@ -522,6 +524,7 @@ struct ClarinetVoice::Impl {
             v = lattice.process(v);
             v = bell.process(v);
             v = shelf.process(v);
+            v = tilt.process(v);
             if (noiseGain > 0.0) {
                 const double nz = noiseLp.process(noiseHp.process(nextNoise()));
                 v += nz * noiseGain * flowAvg;
@@ -534,7 +537,7 @@ struct ClarinetVoice::Impl {
             for (int i = 0; i < kMaxModes; ++i) pnr[i] = pni[i] = 0.0;
             x = xp = 0.0;
             for (auto& s : stages) s.reset();
-            hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset();
+            hp.reset(); dcBlock.reset(); lattice.reset(); bell.reset(); shelf.reset(); tilt.reset();
         }
         const double ms = sumSq / static_cast<double>(n);
         if (!gate && ms < 1e-10) quietT += static_cast<double>(n) / fs; else quietT = 0.0;
