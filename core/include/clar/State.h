@@ -8,12 +8,12 @@
 
 namespace clar {
 
-/// Throws NotImplemented until S-012.
+/// Always succeeds (values are clamped() first); output is a single-line UTF-8 JSON object.
 std::string serializeState(const VoiceParameters& p);
 
 /// Never throws. Returns nullopt for anything that is not a JSON object with the right schema
 /// tag or is larger than 64 KiB; unknown keys ignored; missing keys -> defaults; values clamped().
-/// Stub sentinel: std::nullopt.
+
 std::optional<VoiceParameters> deserializeState(std::string_view text) noexcept;
 
 } // namespace clar
