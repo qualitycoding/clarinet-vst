@@ -1,0 +1,24 @@
+{
+  "schema": "clarinet-vst/resonators@1",
+  "instrument": "Bb soprano clarinet",
+  "units": {"pole": "rad/s", "residue": "Z/Zc"},
+  "provenance": {"note": "FROZEN test fixture. Modes = research/spikes/reed_spike.py (C2) modal fits of the D-009 virtual clarinet, written G3 closed (first 4 modes) and written D5 = G3 geometry with the register hole open (all modes, linear, no D-009 nl emulation)."},
+  "entries": [
+    {"written": 55, "vent": "none", "tuning_scale": 1.0, "modes": [
+      {"re_s": -18.2212, "im_s": 1112.75, "re_c": 714.015, "im_c": 10.1928},
+      {"re_s": -31.4159, "im_s": 3355.22, "re_c": 700.486, "im_c": 11.7645},
+      {"re_s": -41.1549, "im_s": 5580.73, "re_c": 684.037, "im_c": 15.5449},
+      {"re_s": -50.8938, "im_s": 7749.05, "re_c": 648.69, "im_c": 22.6403}]},
+    {"written": 74, "vent": "register", "modes": [
+      {"re_s": -36.7566, "im_s": 1499.8, "re_c": 727.245, "im_c": 9.42052},
+      {"re_s": -31.7301, "im_s": 3363.39, "re_c": 755.042, "im_c": 5.45008},
+      {"re_s": -42.7257, "im_s": 5631.62, "re_c": 595.603, "im_c": 9.95226},
+      {"re_s": -53.4071, "im_s": 7830.11, "re_c": 640.318, "im_c": 25.8463},
+      {"re_s": -67.8584, "im_s": 9704.38, "re_c": 522.841, "im_c": 45.8974},
+      {"re_s": -79.1681, "im_s": 10928.3, "re_c": 339.935, "im_c": 28.8963},
+      {"re_s": -72.5708, "im_s": 12452.6, "re_c": 511.319, "im_c": 39.2325},
+      {"re_s": -83.2522, "im_s": 14201.9, "re_c": 456.183, "im_c": 66.07},
+      {"re_s": -88.5929, "im_s": 15750.7, "re_c": 463.789, "im_c": 80.733},
+      {"re_s": -88.5929, "im_s": 17423.3, "re_c": 538.702, "im_c": 117.863}]}
+  ]
+}
