@@ -21,7 +21,7 @@ ColinotRun simulateColinot(const ResonatorParams& resonator, const ReedParams& r
     const std::size_t M = resonator.modes.size();
     std::vector<cplx> E(M), G(M), pn(M, cplx(0.0, 0.0));
     for (std::size_t i = 0; i < M; ++i) {
-        const cplx s = resonator.modes[i].pole * resonator.tuningScale;
+        const cplx s(resonator.modes[i].pole.real(), resonator.modes[i].pole.imag() * resonator.tuningScale); // D-008: scales Im(s) only
         E[i] = std::exp(s * dt);
         G[i] = resonator.modes[i].residue * (E[i] - 1.0) / s;
     }

@@ -47,6 +47,9 @@ public:
     /// Renders numSamples (<= maxBlockSize) mono samples into out, |out| <= 1.
     void process(float* out, int numSamples) noexcept;
 
+    /// Latency in host samples introduced by the oversampling decimator (valid after prepare()).
+    int latencySamples() const noexcept;
+
     /// For the UI thread (lock-free). Empty set and -1 when silent / released.
     KeySet currentKeys() const noexcept;
     int currentConcertNote() const noexcept;
