@@ -29,9 +29,9 @@ TEST_CASE("T-015 process(), note and parameter calls never allocate", "[T-015][p
     g_allocs = 0; g_track = true;
     v.setBreath(-1);
     for (int i = 0; i < 400; ++i) {
-        if (i % 40 == 0) v.noteOn(49 + (i / 40) % 30, 0.7f);
-        if (i % 40 == 30) v.noteOff(49 + (i / 40) % 30);
-        clar::VoiceParameters p; p.overblow = float(i % 10) / 10.0f; p.harmonicMode = (i / 100) % 2;
+        if (i % 40 == 0) v.noteOn(50 + (i / 40) % 45, 0.7f);
+        if (i % 40 == 30) v.noteOff(50 + (i / 40) % 45);
+        clar::VoiceParameters p; p.overblow = float(i % 10) / 10.0f; p.overblownFingering = (i / 100) % 2;
         v.setParameters(p); v.setPitchBend(0.1f); v.setAftertouch(0.3f);
         v.process(buf.data(), 512);
         (void)v.currentKeys();

@@ -21,7 +21,7 @@ static std::vector<float> harmonics(double fs, double f0, std::vector<double> am
 }
 
 TEST_CASE("T-027 YIN f0 on harmonic tones", "[T-027][unit]") {
-    for (double f : {138.59, 185.0, 440.0, 880.0}) {
+    for (double f : {146.83, 185.0, 440.0, 880.0, 1864.66}) {
         const auto x = harmonics(48000, f, {1.0, 0.5, 0.3, 0.2});
         // YIN with parabolic interpolation resolves well under 1 cent at 1 s duration; allow 2 cents.
         CHECK(std::abs(cents(estimateF0(x, 48000), f)) < 2.0);
@@ -30,9 +30,10 @@ TEST_CASE("T-027 YIN f0 on harmonic tones", "[T-027][unit]") {
 }
 
 TEST_CASE("T-027 register classification", "[T-027][unit]") {
-    CHECK(classifyRegime(harmonics(48000, 185.0, {1, .5}), 48000, 185.0) == Regime::FirstRegister);
-    CHECK(classifyRegime(harmonics(48000, 372.0, {1, .5}), 48000, 185.0) == Regime::SecondRegister);
-    CHECK(classifyRegime(harmonics(48000, 555.0, {1, .5}), 48000, 185.0) == Regime::Other);
+    CHECK(classifyRegime(harmonics(48000, 185.0, {1, .1, .5}), 48000, 185.0) == Regime::FirstRegister);
+    CHECK(classifyRegime(harmonics(48000, 555.0, {1, .5}), 48000, 185.0) == Regime::Twelfth);
+    CHECK(classifyRegime(harmonics(48000, 370.0, {1, .5}), 48000, 185.0) == Regime::Other); // octave: not a clarinet register
+    CHECK(classifyRegime(harmonics(48000, 925.0, {1, .5}), 48000, 185.0) == Regime::Other);
     CHECK(classifyRegime(std::vector<float>(48000, 0.0f), 48000, 185.0) == Regime::Silent);
 }
 

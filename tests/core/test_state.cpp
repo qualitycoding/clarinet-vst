@@ -10,7 +10,7 @@ using namespace clar;
 
 TEST_CASE("T-017 state round-trips every parameter", "[T-017][unit]") {
     VoiceParameters p;
-    p.overblow = 0.7f; p.harmonicMode = true; p.reedHardness = 0.2f; p.brightness = 0.9f;
+    p.overblow = 0.7f; p.overblownFingering = true; p.reedHardness = 0.2f; p.brightness = 0.9f;
     p.breathNoise = 0.1f; p.vibratoRateHz = 6.5f; p.vibratoDepth = 0.4f; p.portamentoMs = 120.0f;
     p.tuningA4Hz = 442.0f; p.outputGainDb = -6.0f;
     const auto text = serializeState(p);

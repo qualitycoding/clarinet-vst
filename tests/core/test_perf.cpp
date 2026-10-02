@@ -20,7 +20,7 @@ TEST_CASE("T-016 real-time factor", "[T-016][performance]") {
         std::vector<float> buf(128);
         const auto t0 = std::chrono::steady_clock::now();
         for (int b = 0; b < 48000 * 10 / 128; ++b) {
-            if (b % 375 == 0) v.noteOn(49 + (b / 375) % 33, 0.7f);
+            if (b % 375 == 0) v.noteOn(50 + (b / 375) % 45, 0.7f);
             v.process(buf.data(), 128);
         }
         const double secs = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();

@@ -14,8 +14,8 @@ clar_test(clar_unit_tests
   core/test_resonator_table.cpp core/test_reed_model.cpp core/test_state.cpp
   core/test_key_layout.cpp core/test_analysis.cpp)
 clar_test(clar_integration_tests
-  core/test_colinot_reference.cpp core/test_voice_pitch.cpp core/test_voice_registers.cpp
-  core/test_midi_behaviour.cpp)
+  core/test_reference_integrator.cpp core/test_voice_pitch.cpp core/test_voice_registers.cpp
+  core/test_midi_behaviour.cpp core/test_timbre.cpp)
 clar_test(clar_operational_tests core/test_voice_robustness.cpp)
 clar_test(clar_alloc_tests core/test_alloc.cpp)
 clar_test(clar_perf_tests core/test_perf.cpp)

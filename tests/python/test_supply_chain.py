@@ -33,5 +33,5 @@ def test_ci_actions_pinned_to_full_sha():
 def test_licence_and_notices_present():
     assert "Apache License" in (ROOT / "LICENSE").read_text()
     notices = (ROOT / "THIRD_PARTY_NOTICES.md").read_text()
-    for name in ("JUCE", "AGPL", "VST 3", "MIT", "nlohmann", "Catch2", "TinySOL", "CC BY 4.0", "Colinot"):
+    for name in ("JUCE", "AGPL", "VST 3", "MIT", "nlohmann", "Catch2", "TinySOL", "CC BY 4.0", "Colinot", "Petersen", "Woodwind Fingering Guide"):
         assert name in notices, name

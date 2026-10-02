@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
-"""CLI: render every TinySOL alto note with clar_render and write realism/results.json (D-015).
-Usage: python -m tools.realism.compare_tinysol --render BUILD/tools/clar_render --tinysol DIR --out FILE
+"""CLI: render every TinySOL clarinet note with clar_render and write results.json (D-015).
+Usage: python -m tools.realism.compare_tinysol --render BUILD/tools/render/clar_render --tinysol DIR --out FILE
 STUB."""
 from __future__ import annotations
 import sys

@@ -13,7 +13,7 @@ using namespace clar;
 static std::vector<float> chaos(unsigned seed, double seconds) {
     std::mt19937 rng(seed);
     std::uniform_real_distribution<float> u(0.0f, 1.0f);
-    std::uniform_int_distribution<int> note(40, 90), blk(64, 512);
+    std::uniform_int_distribution<int> note(40, 100), blk(64, 512);
     const double fs = 48000;
     ClarinetVoice v(clartest::embeddedTable()); v.prepare(fs, 512);
     std::vector<float> out(static_cast<size_t>(seconds * fs));
@@ -21,7 +21,7 @@ static std::vector<float> chaos(unsigned seed, double seconds) {
     while (i < out.size()) {
         if (i >= nextEvent) {
             VoiceParameters p;
-            p.overblow = u(rng) * 1.4f - 0.2f;  p.harmonicMode = u(rng) > 0.5f;
+            p.overblow = u(rng) * 1.4f - 0.2f;  p.overblownFingering = u(rng) > 0.5f;
             p.reedHardness = u(rng) * 1.4f - 0.2f; p.brightness = u(rng); p.breathNoise = u(rng);
             p.vibratoRateHz = u(rng) * 10; p.vibratoDepth = u(rng); p.portamentoMs = u(rng) * 600;
             p.tuningA4Hz = 400 + u(rng) * 80; p.outputGainDb = u(rng) * 40 - 30;
@@ -55,7 +55,7 @@ TEST_CASE("T-025 extreme but valid host configurations work", "[T-025][operation
     for (double fs : {22050.0, 192000.0})
         for (int block : {1, 4096}) {
             INFO("fs " << fs << " block " << block);
-            const auto x = clartest::renderNote(fs, 61, 0.7f, 0.5, {}, block);
+            const auto x = clartest::renderNote(fs, 60, 0.7f, 0.5, {}, block);
             double s = 0; bool finite = true;
             for (float v : x) { s += double(v) * v; finite &= std::isfinite(v); }
             CHECK(finite);
@@ -69,7 +69,7 @@ TEST_CASE("T-025 invalid configuration is rejected; reset silences; zero-length 
     CHECK_THROWS_AS(v.prepare(48000, 0), std::invalid_argument);
     v.prepare(48000, 256); v.setBreath(-1);
     v.process(nullptr, 0);
-    v.noteOn(61, 0.8f);
+    v.noteOn(60, 0.8f);
     std::vector<float> buf(256);
     for (int i = 0; i < 100; ++i) v.process(buf.data(), 256);
     v.reset();

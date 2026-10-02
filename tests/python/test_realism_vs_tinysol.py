@@ -26,7 +26,7 @@ def _results(tmp_path: Path) -> list[dict]:
     out = tmp_path / "results.json"
     assert compare_tinysol.main(["--render", render, "--tinysol", tdir, "--out", str(out)]) == 0
     rows = json.loads(out.read_text())
-    assert len(rows) >= 80, "expected ~99 alto notes (33 pitches x 3 dynamics), minus TinySOL gaps"
+    assert len(rows) >= 100, "expected up to 135 clarinet notes (45 pitches x 3 dynamics), minus TinySOL gaps"
     return rows
 
 
@@ -46,7 +46,7 @@ def test_realism_against_tinysol(tmp_path):
         assert ok >= THRESH["fraction_required"], (dyn, "attack", ok)
 
 
-def test_dynamics_brighten_like_a_real_sax(tmp_path):
+def test_dynamics_brighten_like_a_real_clarinet(tmp_path):
     rows = _results(tmp_path)
     by = {}
     for r in rows:

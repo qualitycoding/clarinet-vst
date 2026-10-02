@@ -1,0 +1,1284 @@
+[
+ {
+  "id": "C-001",
+  "claim": "JUCE 8.x/9.x modules are dual-licensed AGPLv3 / commercial JUCE licence; repository code may carry its own licence (Apache-2.0); distributed binaries are governed by the JUCE licence chosen at build time.",
+  "kind": "policy",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/juce-framework/JUCE/9.0.3/LICENSE.md",
+    "doi": "",
+    "title": "JUCE LICENSE.md",
+    "version": "9.0.3",
+    "locator": "lines 1-8",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/juce-framework/JUCE/commit/94d98a2b102035346433c87410d341f0e2ebf5e3",
+    "doi": "",
+    "title": "JUCE commit 94d98a2 (licence change)",
+    "version": "",
+    "locator": "LICENSE.md diff",
+    "accessed": "2026-10-01",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-001",
+   "D-017",
+   "A-013"
+  ]
+ },
+ {
+  "id": "C-002",
+  "claim": "Latest JUCE release is 9.0.3 (published 2026-09-28), tag commit be29c81492b6151c8ea8d14c840e1311963b3a83; CMake >= 3.22; C++17 or later.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://api.github.com/repos/juce-framework/JUCE/releases/latest",
+    "doi": "",
+    "title": "GitHub API releases/latest",
+    "version": "",
+    "locator": "tag_name, published_at",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://api.github.com/repos/juce-framework/JUCE/git/ref/tags/9.0.3",
+    "doi": "",
+    "title": "GitHub API git/ref/tags/9.0.3",
+    "version": "",
+    "locator": "object.sha",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-001",
+   "D-002",
+   "plan/ENVIRONMENT.md"
+  ]
+ },
+ {
+  "id": "C-003",
+  "claim": "The VST 3 SDK is MIT-licensed from version 3.8 (October 2025).",
+  "kind": "policy",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://ocl-steinberg-live.steinberg.net/_storage/asset/819253/storage/master/Press%20Release%20-%202025-10-29%20-%20VST%203.8%20-%20EN.pdf",
+    "doi": "",
+    "title": "Steinberg press release VST 3.8",
+    "version": "",
+    "locator": "p.1",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "https://heise.de/-10963451",
+    "doi": "",
+    "title": "heise online",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-01",
+    "tier": 3
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-017"
+  ]
+ },
+ {
+  "id": "C-004",
+  "claim": "When the register hole is opened while the first register sounds, the second register is reached over a narrower blowing-pressure range than where it is stable; outcome can depend on the phase/timing (phase tipping) and long quasi-periodic transients occur near thresholds.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al., Register jumps on the clarinet (arXiv 2506.03875)",
+    "version": "",
+    "locator": "Abstract; sec. 5.2",
+    "accessed": "2026-10-02",
+    "tier": 2
+   },
+   {
+    "url": "https://dael.euracoustics.org/confs/fa2025/data/articles/000473.pdf",
+    "doi": "",
+    "title": "Szwarcberg et al., Forum Acusticum 2025",
+    "version": "",
+    "locator": "Abstract",
+    "accessed": "2026-10-02",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-011",
+   "T-012",
+   "R-008"
+  ]
+ },
+ {
+  "id": "C-005",
+  "claim": "TinySOL v6.0 (Zenodo 3685367, CC BY 4.0): 2913 single notes of 14 instruments incl. \"Clarinet in B-flat\", ordinario only, pp/mf/ff; metadata CSV columns Path, Fold, Family, Instrument (abbr.), Instrument (in full), Technique..., Pitch, Pitch ID, Dynamics, Dynamics ID, Instance ID, String ID, Needed digital retuning; ~1 % pitches missing, ~20 % digitally retuned.",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://zenodo.org/record/3685367",
+    "doi": "",
+    "title": "Zenodo record 3685367",
+    "version": "",
+    "locator": "Description",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://zenodo.org/record/3685367/files/TinySOL_metadata.csv?download=1",
+    "doi": "",
+    "title": "TinySOL_metadata.csv",
+    "version": "",
+    "locator": "header row",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://mirdata.readthedocs.io/en/latest/_modules/mirdata/datasets/tinysol.html",
+    "doi": "",
+    "title": "mirdata TinySOL loader",
+    "version": "",
+    "locator": "docstring",
+    "accessed": "2026-10-02",
+    "tier": 3
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-015",
+   "D-021",
+   "T-022b",
+   "A-005"
+  ]
+ },
+ {
+  "id": "C-006",
+  "claim": "Single-reed exciter: 1-DOF reed (1/w_r^2) x'' + (q_r/w_r) x' + x = p - gamma + F_c(x), contact force K_c((x+1-|x+1|)/2)^2, Bernoulli flow u = zeta ((x+1+|x+1|)/2) sign(gamma-p) sqrt|gamma-p| with |.| regularised by sqrt(.^2+eta); identical form in Colinot et al. 2021 (saxophone) and Petersen et al. 2020 (clarinet). Modal resonator Z = sum C_n/(s-s_n)+cc.",
+  "kind": "mathematical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/aacus200020.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen, Colinot, Guillemain, Kergomard 2020, Acta Acust. 4:18",
+    "version": "",
+    "locator": "eqs. (7)-(9)",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2021/01/aacus200059/aacus200059.html",
+    "doi": "",
+    "title": "Colinot, Vergez, Guillemain, Doc 2021, Acta Acust. 5:33",
+    "version": "",
+    "locator": "eqs. (4)-(13)",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/reed_spike.py",
+    "doi": "",
+    "title": "Spike C2 (this plan)",
+    "version": "",
+    "locator": "run()",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "cited",
+  "contradicted_by": [],
+  "informs": [
+   "D-005",
+   "T-007",
+   "T-008"
+  ]
+ },
+ {
+  "id": "C-007",
+  "claim": "Typical clarinet controls: gamma 0.5 (piano, near oscillation threshold) and 0.7 (forte, beating reed), zeta 0.4; clarinet embouchure zeta range 0.05-0.4.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/T3.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020 Table 3",
+    "version": "",
+    "locator": "Table 3",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025",
+    "version": "",
+    "locator": "sec. 3.4.3",
+    "accessed": "2026-10-02",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-011"
+  ]
+ },
+ {
+  "id": "C-008",
+  "claim": "Colinot's time-domain synthesis used Fs = 176 400 Hz (4x audio rate) for accuracy.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2021/01/aacus200059/aacus200059.html",
+    "doi": "",
+    "title": "Colinot et al. 2021",
+    "version": "",
+    "locator": "sec. 2.3",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/reed_spike.py",
+    "doi": "",
+    "title": "Spike C2",
+    "version": "",
+    "locator": "Fs=176400",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-005"
+  ]
+ },
+ {
+  "id": "C-009",
+  "claim": "For gamma >= 1 the equilibrium (reed closed, no sound) is stable.",
+  "kind": "mathematical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025",
+    "version": "",
+    "locator": "sec. 4.1 (citing Dalmont et al. 2005)",
+    "accessed": "2026-10-02",
+    "tier": 2
+   },
+   {
+    "url": "https://doi.org/10.1121/1.2081187",
+    "doi": "",
+    "title": "Dalmont et al. 2005 JASA 118:3294 (cited)",
+    "version": "",
+    "locator": "thresholds",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "cited",
+  "contradicted_by": [],
+  "informs": [
+   "D-006",
+   "D-011"
+  ]
+ },
+ {
+  "id": "C-010",
+  "claim": "Standard Boehm B-flat clarinet fingerings written E3..G6 per the Woodwind Fingering Guide basic chart (first-listed fingering), G#6..C7 per its alternate chart (first-listed); see tests/fixtures/clarinet_standard_fingerings.txt.",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_1.html",
+    "doi": "",
+    "title": "WFG basic chart, chalumeau",
+    "version": "",
+    "locator": "all rows",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_2.html",
+    "doi": "",
+    "title": "WFG basic chart, clarion",
+    "version": "",
+    "locator": "all rows",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_3.html",
+    "doi": "",
+    "title": "WFG basic chart, lower altissimo",
+    "version": "",
+    "locator": "all rows",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_alt_4.html",
+    "doi": "",
+    "title": "WFG alternate chart, upper altissimo",
+    "version": "",
+    "locator": "G#6..C7 first rows",
+    "accessed": "2026-10-02",
+    "tier": 3
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-004",
+   "T-003",
+   "G-004",
+   "R-004"
+  ]
+ },
+ {
+  "id": "C-011",
+  "claim": "Boehm-system lever set per WFG key scheme: R, T, A, side G#, LH 1/2/3, LH Eb/Bb sliver, LH pinky C#/G#, E/B, F/C, F#/C#; RH side keys 1-4; RH 1/2/3, RH B/F# sliver; RH pinky E/B, F/C, F#/C#, G#/D# (24 levers; LH G#/D# exists only on some models).",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_fing.html",
+    "doi": "",
+    "title": "WFG fingering scheme for clarinet",
+    "version": "",
+    "locator": "Boehm-System Clarinet",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.lee.k12.al.us/cms/lib/AL02210054/Centricity/Domain/305/fingering.chart.clarinet.basic.pdf",
+    "doi": "",
+    "title": "WFG scheme reproduced (school PDF)",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 4
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-004",
+   "T-002",
+   "T-018"
+  ]
+ },
+ {
+  "id": "C-012",
+  "claim": "Register key raises the pitch by a twelfth and is pressed for nearly all clarion and altissimo notes; thumb hole left open for throat tones; throat Bb = register key + A key.",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_fing.html",
+    "doi": "",
+    "title": "WFG fingering scheme",
+    "version": "",
+    "locator": "Left Thumb Keys",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_1.html",
+    "doi": "",
+    "title": "WFG chalumeau chart",
+    "version": "",
+    "locator": "G4..Bb4 rows",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://saxteacheruk.com/tutorials/clarinet-fingering-chart.html",
+    "doi": "",
+    "title": "saxteacheruk clarinet chart",
+    "version": "",
+    "locator": "register key paragraph",
+    "accessed": "2026-10-02",
+    "tier": 4
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-004",
+   "T-004"
+  ]
+ },
+ {
+  "id": "C-013",
+  "claim": "The playing frequency sits below the first impedance resonance by an amount that grows for short tubes/high notes (reed compliance); spike: chalumeau -0..-3 c, throat Bb4 -46..-56 c, altissimo -62..-73 c relative to f1-solved targets.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2021/01/aacus200059/aacus200059.html",
+    "doi": "",
+    "title": "Colinot et al. 2021",
+    "version": "",
+    "locator": "sec. 3",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c6.py",
+    "doi": "",
+    "title": "Spike C6",
+    "version": "",
+    "locator": "Bb4_throat",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c7.py",
+    "doi": "",
+    "title": "Spike C7",
+    "version": "",
+    "locator": "all",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-008",
+   "D-009",
+   "T-026"
+  ]
+ },
+ {
+  "id": "C-014",
+  "claim": "Between registers single-reed models produce quasi-periodic regimes and long transients.",
+  "kind": "numerical",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2021/01/aacus200059/aacus200059.html",
+    "doi": "",
+    "title": "Colinot et al. 2021",
+    "version": "",
+    "locator": "sec. 4",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025",
+    "version": "",
+    "locator": "sec. 5.2.4",
+    "accessed": "2026-10-02",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "R-008"
+  ]
+ },
+ {
+  "id": "C-015",
+  "claim": "Radiated clarinet spectra show a reinforced band near the lattice cutoff (even harmonics rise to match odd ones around 1-2 kHz); the clarinet bell has a resonance near 2.1 kHz.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/aacus200020.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020",
+    "version": "",
+    "locator": "secs. 3.4, 5",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://doi.org/10.1121/1.396431",
+    "doi": "",
+    "title": "Benade & Kouzoupis 1988 JASA 83:292 (cited)",
+    "version": "",
+    "locator": "Figs. 6-10",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-014"
+  ]
+ },
+ {
+  "id": "C-016",
+  "claim": "Clarinet tone-hole lattice cutoffs typically range 1150-1450 Hz; ~1.5 kHz is a common nominal value.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://doi.org/10.1051/aacus/2020012",
+    "doi": "",
+    "title": "Petersen et al. 2020 (saxophone cutoff paper), citing Moers & Kergomard 2011",
+    "version": "",
+    "locator": "sec. 3.1",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://www.researchgate.net/publication/48195024_On_the_Cutoff_Frequency_of_Clarinet-Like_Instruments_Geometrical_versus_Acoustical_Regularity",
+    "doi": "",
+    "title": "Moers & Kergomard 2011 Acta Acust. 97:984",
+    "version": "",
+    "locator": "abstract",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009"
+  ]
+ },
+ {
+  "id": "C-017",
+  "claim": "OpenWInD (INRIA) is GPLv3 Python; usable only as an optional, unshipped cross-check.",
+  "kind": "policy",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://pypi.org/project/openwind/",
+    "doi": "",
+    "title": "PyPI openwind",
+    "version": "",
+    "locator": "licence",
+    "accessed": "2026-10-01",
+    "tier": 2
+   },
+   {
+    "url": "https://gitlab.inria.fr/openwind/openwind",
+    "doi": "",
+    "title": "OpenWInD repository",
+    "version": "",
+    "locator": "LICENSE",
+    "accessed": "2026-10-01",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-017"
+  ]
+ },
+ {
+  "id": "C-018",
+  "claim": "Pinned dependencies: Catch2 v3.16.0 commit 317ac1ed4c0bb6e6b91eafc817e05c488feffcb3; nlohmann/json v3.12.0 commit 55f93686c01528224f448c19128836e7df245f72; pluginval v1.0.4 (latest) Linux zip SHA-256 c01c49d8...b55352.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://api.github.com/repos/catchorg/Catch2/git/tags/fd79eadb5bc1760e7cbae12fd45b0d0040d1bb73",
+    "doi": "",
+    "title": "GitHub API annotated tag v3.16.0",
+    "version": "",
+    "locator": "object.sha",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://api.github.com/repos/nlohmann/json/git/tags/65ee68451d8eb2b5f3a30b410476ab83deb3289b",
+    "doi": "",
+    "title": "GitHub API annotated tag v3.12.0",
+    "version": "",
+    "locator": "object.sha",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Linux.zip",
+    "doi": "",
+    "title": "pluginval_Linux.zip (sha256sum in sandbox)",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-002",
+   "T-023",
+   "T-024"
+  ]
+ },
+ {
+  "id": "C-019",
+  "claim": "pluginval 1.0.4 validates a JUCE 9.0.3 VST3 at strictness 10 on Linux only under a virtual display (xvfb-run); without a display it segfaults.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://github.com/qualitycoding/saxophone-vst/blob/gen-20261001T211329Z-saxophone-vst-plan/research/spikes/plugin_build.log",
+    "doi": "",
+    "title": "Sibling plan plugin_build.log",
+    "version": "",
+    "locator": "pluginval section",
+    "accessed": "2026-10-01",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/plugin_build.log",
+    "doi": "",
+    "title": "This plan plugin_build.log",
+    "version": "",
+    "locator": "pluginval section",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-020",
+   "T-023"
+  ]
+ },
+ {
+  "id": "C-020",
+  "claim": "GitHub Actions pins: checkout v7.0.1 3d3c42e5aac5ba805825da76410c181273ba90b1, setup-python v7.0.0 5fda3b95a4ea91299a34e894583c3862153e4b97, cache v6.1.0 55cc8345863c7cc4c66a329aec7e433d2d1c52a9, upload-artifact v7.0.1 043fb46d1a93c77aae656e7c1c64a875d1fc6a0a (all latest releases).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://api.github.com/repos/actions/checkout/git/ref/tags/v7.0.1",
+    "doi": "",
+    "title": "GitHub API refs",
+    "version": "",
+    "locator": "object.sha",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://api.github.com/repos/actions/checkout/releases/latest",
+    "doi": "",
+    "title": "GitHub API releases/latest (each action)",
+    "version": "",
+    "locator": "tag_name",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-020"
+  ]
+ },
+ {
+  "id": "C-021",
+  "claim": "In real clarinets the reed resonance and the lattice cutoff are both near 1.5 kHz; a 1.5 kHz reed resonance in the model produces even/odd convergence near 1.5 kHz even without a lattice.",
+  "kind": "numerical",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/aacus200020.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020",
+    "version": "",
+    "locator": "sec. 3.4 (citing Chatziioannou & van Walstijn 2012)",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-005",
+   "D-011"
+  ]
+ },
+ {
+  "id": "C-022",
+  "claim": "A reed resonance of 1.5 kHz with low reed damping (q_r 0.4) lets the model squeak (lock onto a ~1.2-1.5 kHz impedance peak) on register-hole-open resonators; q_r >= 0.7 or f_r = 2.2 kHz removes it in the tested grid.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "research/spikes/reed_map.py",
+    "doi": "",
+    "title": "Spike C4",
+    "version": "",
+    "locator": "fr1500_qr0.4 rows",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/diag.py",
+    "doi": "",
+    "title": "Spike C3 diagnostic",
+    "version": "",
+    "locator": "top bins 1225-1530 Hz",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-011",
+   "R-010"
+  ]
+ },
+ {
+  "id": "C-023",
+  "claim": "Python 3.12 + numpy 2.5.3, scipy 1.18.1, soundfile 0.14.0, pytest 9.1.1, pip-audit 2.10.1 install together from tools/requirements.txt.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "tools/requirements.txt",
+    "doi": "",
+    "title": "venv install in planning sandbox 2026-10-02",
+    "version": "",
+    "locator": "pip install -r",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/qualitycoding/saxophone-vst/blob/gen-20261001T211329Z-saxophone-vst-plan/plan/ENVIRONMENT.md",
+    "doi": "",
+    "title": "Sibling plan verified install",
+    "version": "",
+    "locator": "Python tools",
+    "accessed": "2026-10-01",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "plan/ENVIRONMENT.md"
+  ]
+ },
+ {
+  "id": "C-024",
+  "claim": "The B-flat clarinet sounds a major second (2 semitones) below written; standard range written E3..C7 (altissimo continues higher with alternate fingerings), i.e. concert D3..Bb6 (MIDI 50..94).",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_1.html",
+    "doi": "",
+    "title": "WFG chalumeau chart (starts E3)",
+    "version": "",
+    "locator": "header",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_alt_4.html",
+    "doi": "",
+    "title": "WFG upper altissimo G6..A7",
+    "version": "",
+    "locator": "header",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025 (notes written in Bb)",
+    "version": "",
+    "locator": "footnote 1",
+    "accessed": "2026-10-02",
+    "tier": 2
+   },
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/aacus200020.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020 (E3 = 165 Hz, i.e. written pitch names)",
+    "version": "",
+    "locator": "sec. 5",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "A-002",
+   "D-004",
+   "T-001"
+  ]
+ },
+ {
+  "id": "C-025",
+  "claim": "A cylindrical, reed-driven bore behaves as closed-open: impedance peaks near odd multiples of f1, odd harmonics dominate below the lattice cutoff, and it overblows to the twelfth (3rd harmonic); clarion fingerings repeat chalumeau fingerings a twelfth lower plus the register key.",
+  "kind": "mathematical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/aacus200020.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020",
+    "version": "",
+    "locator": "secs. 2, 3.4",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_fing.html",
+    "doi": "",
+    "title": "WFG scheme: register key raises a twelfth",
+    "version": "",
+    "locator": "R",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "research/spikes/geometry_check.py",
+    "doi": "",
+    "title": "Spike C11: f2/f1 2.98-3.02",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "cited",
+  "contradicted_by": [],
+  "informs": [
+   "D-004",
+   "D-009",
+   "T-004",
+   "T-026",
+   "T-032"
+  ]
+ },
+ {
+  "id": "C-026",
+  "claim": "Clarinet reed parameters for synthesis: f_r = 1500 Hz, q_r = 0.4, K_c = 100, beta = 5e-4, eta = 0.01.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/T2.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020 Table 2",
+    "version": "",
+    "locator": "Table 2",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/reed_spike.py",
+    "doi": "",
+    "title": "Spike C2 (plays F3 at 174.3-175.0 Hz)",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-005",
+   "T-007"
+  ]
+ },
+ {
+  "id": "C-027",
+  "claim": "Self-oscillating models with a linear register hole (incl. modal synthesis from impedance) do not guarantee second-register production on clarion fingerings; localized nonlinear losses in the register hole are decisive. Spikes: linear model 0-3/6 twelfths, mostly the open-hole first register (~238 Hz for the G3 geometry).",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/html/2404.07540v1",
+    "doi": "",
+    "title": "Szwarcberg et al. 2024 JASA 156:726 (arXiv 2404.07540)",
+    "version": "",
+    "locator": "Abstract, Introduction",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://arxiv.org/abs/2601.01981v1",
+    "doi": "",
+    "title": "Szwarcberg et al. 2026 (arXiv 2601.01981)",
+    "version": "",
+    "locator": "Abstract",
+    "accessed": "2026-10-02",
+    "tier": 2
+   },
+   {
+    "url": "research/spikes/reed_map.py",
+    "doi": "",
+    "title": "Spike C4",
+    "version": "",
+    "locator": "bw1 rows",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/t009_check.py",
+    "doi": "",
+    "title": "Spike C9",
+    "version": "",
+    "locator": "linear",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009",
+   "T-009",
+   "T-012",
+   "R-002"
+  ]
+ },
+ {
+  "id": "C-028",
+  "claim": "Clarinet register hole: ~140 mm below the effective input, radius ~1.5-1.65 mm, chimney 12.5-13 mm, main bore radius 7.5 mm (Debut et al. 2005); a simplified experimental clarinet used 132 mm, r 1.5 mm, chimney 10 mm, R 7.5 mm (Szwarcberg 2025).",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/html/physics/0309051v2",
+    "doi": "",
+    "title": "Debut, Kergomard, Laloe 2005, Appl. Acoust. 66:365 (arXiv physics/0309051)",
+    "version": "",
+    "locator": "secs. 3.3.1, 4.3.1",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025",
+    "version": "",
+    "locator": "sec. 2",
+    "accessed": "2026-10-02",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009"
+  ]
+ },
+ {
+  "id": "C-029",
+  "claim": "Clarinet twelfths are not perfectly tuned; the register hole causes wide twelfths for the lowest clarion notes (tens of cents); spike C8: B4 +24..+29 c, others +1..+18 c before calibration.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/html/physics/0309051v2",
+    "doi": "",
+    "title": "Debut et al. 2005",
+    "version": "",
+    "locator": "Abstract, sec. 5",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c8.py",
+    "doi": "",
+    "title": "Spike C8",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-008",
+   "T-010",
+   "T-012"
+  ]
+ },
+ {
+  "id": "C-030",
+  "claim": "Petersen et al. 2020 Table 1 resonators (a 6.5 mm, h 9.8 mm, l 16.3 mm; b 2.5/4.0/5.8 mm; L 398.8/417.0/426.0 mm; 10 open holes) have f1 = 185 Hz and cutoffs 1.0/1.5/2.0 kHz; the plan TMM reproduces f1 185.2/184.8/184.6 Hz and detected cutoffs 1105/1512/1898 Hz. Below cutoff even harmonics are much weaker than odd ones.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://acta-acustica.edpsciences.org/articles/aacus/full_html/2020/05/aacus200020/T1.html",
+    "doi": "10.1051/aacus/2020018",
+    "title": "Petersen et al. 2020 Table 1",
+    "version": "",
+    "locator": "Table 1, eq. (1)",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/cutoff_check.py",
+    "doi": "",
+    "title": "Spike C10",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/tmm_spike.py",
+    "doi": "",
+    "title": "Spike C1",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009",
+   "T-030",
+   "T-032"
+  ]
+ },
+ {
+  "id": "C-031",
+  "claim": "Visco-thermal propagation model Gamma(s) = s/c + (1.044/R) sqrt(2 l_v / c) sqrt(s) + 1.080 l_v / R^2, l_v = 4e-8 m.",
+  "kind": "mathematical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/pdf/2506.03875",
+    "doi": "",
+    "title": "Szwarcberg et al. 2025 sec. 3.2 (citing Chaigne & Kergomard 2016 ch. 5.5)",
+    "version": "",
+    "locator": "sec. 3.2",
+    "accessed": "2026-10-02",
+    "tier": 2
+   },
+   {
+    "url": "research/spikes/cutoff_check.py",
+    "doi": "",
+    "title": "Spike C10 reproduces published f1 within 0.2 %",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "cited",
+  "contradicted_by": [],
+  "informs": [
+   "D-009",
+   "T-030"
+  ]
+ },
+ {
+  "id": "C-032",
+  "claim": "Altissimo approximation: a plain closed-open cylinder (r 7.5 mm, no lattice) solved for f1 = target*2^(25/1200), with reed resonance f_r = max(1500, 2 f_target), speaks in its first register for written C#6..C7, 62-73 cents flat before calibration; with f_r = 1500 Hz it is 132-200 cents flat. The lattice approach fails above ~1.5 kHz (first resonance cannot be tuned above the cutoff).",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "research/spikes/spike_c7.py",
+    "doi": "",
+    "title": "Spike C7",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c6.py",
+    "doi": "",
+    "title": "Spike C6 (lattice altissimo fails)",
+    "version": "",
+    "locator": "C7_alt",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009",
+   "D-005"
+  ]
+ },
+ {
+  "id": "C-033",
+  "claim": "On closed-hole fingerings, raising gamma (to 1.0), shortening the attack, lowering q_r or zeta does not make the model leave the first register; damping mode 1 (x10 bandwidth) makes it play the twelfth (-2..+4 cents).",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "research/spikes/overblow_map.py",
+    "doi": "",
+    "title": "Spike C5",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c6.py",
+    "doi": "",
+    "title": "Spike C6",
+    "version": "",
+    "locator": "G3, C4",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-006",
+   "D-007",
+   "T-013"
+  ]
+ },
+ {
+  "id": "C-034",
+  "claim": "The WFG basic Boehm chart covers E3..G6; notes above G6 appear only in its alternate (upper altissimo) chart.",
+  "kind": "bibliographic",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_bas_3.html",
+    "doi": "",
+    "title": "WFG lower altissimo: C6 to G6",
+    "version": "",
+    "locator": "header",
+    "accessed": "2026-10-02",
+    "tier": 3
+   },
+   {
+    "url": "https://www.wfg.woodwind.org/clarinet/cl_alt_4.html",
+    "doi": "",
+    "title": "WFG upper altissimo alternate chart G6 to A7",
+    "version": "",
+    "locator": "header",
+    "accessed": "2026-10-02",
+    "tier": 3
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-004"
+  ]
+ },
+ {
+  "id": "C-035",
+  "claim": "Emulating the register-hole nonlinear losses by multiplying the first-mode damping by 10, with q_r = 0.7, gives the twelfth in 6/6 (gamma 0.5/0.65 x tau 3/10/30 ms) for the written-D5 and written-F5 clarion resonators and 6/6 in the frozen-fixture replay; upper clarion notes (written 71..84) speak within +1..+29 cents.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "research/spikes/reed_map.py",
+    "doi": "",
+    "title": "Spike C4",
+    "version": "",
+    "locator": "bw10 rows",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/t009_check.py",
+    "doi": "",
+    "title": "Spike C9",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   },
+   {
+    "url": "research/spikes/spike_c8.py",
+    "doi": "",
+    "title": "Spike C8",
+    "version": "",
+    "locator": "",
+    "accessed": "2026-10-02",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-009",
+   "T-009",
+   "T-012"
+  ]
+ }
+]
