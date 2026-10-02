@@ -1,4 +1,4 @@
-<!-- STATUS: see HANDOFF.md. Branch: gen-20261002T075147Z-clarinet-vst-plan. Profile: software (deploys=false). -->
+<!-- STATUS: planning complete 2026-10-02 UTC. Branch: gen-20261002T075147Z-clarinet-vst-plan. Profile: software (deploys=false). Steps S-001..S-018; gates G-004, G-003 (G-001/G-002 N/A). Frozen tests: 28 files in tests/FROZEN_MANIFEST.sha256, red verified except D-018 guards. Open risks (Medium): R-001, R-002, R-003, R-004, R-008, R-015. Substitutions: single agent, in-context reviews (A-016). -->
 # Execution plan — clarinet-vst v1
 
 Conventions: run all commands from the repository root on branch `impl/clarinet-v1` (D-019). "Build" means

@@ -1,0 +1,32 @@
+# Planning-sandbox plugin build and validation log, 2026-10-02T12:23:43Z
+## Build
+Release, JUCE 9.0.3 (pinned SHA, local shallow source dir), GCC 13.3, -j1, LTO:
+      1 /home/claude/clar/build-core/_deps/catch2-src/src/catch2/../catch2/internal/catch_decomposer.hpp:341:65: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+      1 /home/claude/clar/tests/plugin/test_plugin.cpp:62:88: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+      3 /home/claude/deps/juce/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+      1 BUILD_RC=0
+      1 lto-wrapper: warning: using serial compilation of 104 LTRANS jobs
+      1 lto-wrapper: warning: using serial compilation of 86 LTRANS jobs
+      1 lto-wrapper: warning: using serial compilation of 99 LTRANS jobs
+
+## T-029 plugin tests (xvfb-run -a)
+/home/claude/clar/tests/plugin/test_plugin.cpp:45: FAILED:
+/home/claude/clar/tests/plugin/test_plugin.cpp:46: FAILED:
+/home/claude/clar/tests/plugin/test_plugin.cpp:51: FAILED:
+/home/claude/clar/tests/plugin/test_plugin.cpp:59: FAILED:
+test cases:  3 |  1 passed | 2 failed
+assertions: 16 | 12 passed | 4 failed
+
+## T-016 Release perf
+due to unexpected exception with message:
+test cases: 1 | 1 failed
+
+## T-023 pluginval 1.0.4 strictness 10 on the stub VST3 (xvfb-run -a)
+exit code: 0
+Strictness level: 10
+Starting tests in: pluginval / Scan for plugins located in: /home/claude/clar/build/plugin/ClarinetVST_artefacts/Release/VST3/Clarinet.vst3...
+Starting tests in: pluginval / Open plugin (cold)...
+Starting tests in: pluginval / Open plugin (warm)...
+Starting tests in: pluginval / Plugin info...
+Starting tests in: pluginval / Plugin programs...
+pluginval result: 1 SUCCESS line(s); tail: SUCCESS

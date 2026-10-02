@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 // The 24 player-operated keys, rings and tone holes of a Boehm-system B-flat clarinet that the UI can
 // highlight ("levers", A-006). Names follow the Woodwind Fingering Guide key scheme (C-010, D-004).
-// A finger hole with a ring (thumb, LH1-3, RH1-3) counts as one lever: pressed = hole covered.
+// A finger tone hole (thumb, LH1-3, RH1-3; with or without a ring on a given model) counts as one lever:
+// pressed = hole covered.
 #pragma once
 #include <bitset>
 #include <cstddef>
@@ -13,11 +14,11 @@ namespace clar {
 
 enum class KeyId : std::uint8_t {
     Register,    ///< left-thumb register key (R)                    "register"
-    Thumb,       ///< left-thumb tone hole with ring (T)              "thumb"
+    Thumb,       ///< left-thumb tone hole (T)              "thumb"
     AKey,        ///< LH1 top A key (A)                               "a_key"
     GSharp,      ///< LH1 side G# key (G#)                            "g_sharp"
-    LH1,         ///< LH first-finger hole with ring (1)              "lh1"
-    LH2,         ///< LH second-finger hole with ring (2)             "lh2"
+    LH1,         ///< LH first-finger hole (1)              "lh1"
+    LH2,         ///< LH second-finger hole (2)             "lh2"
     LHEbSliver,  ///< LH Eb/Bb sliver key (Eb)                        "lh_eb_sliver"
     LH3,         ///< LH third-finger hole (3)                        "lh3"
     LHCSharp,    ///< LH pinky C#/G# key (C#)                         "lh_c_sharp"
@@ -28,10 +29,10 @@ enum class KeyId : std::uint8_t {
     Side2,       ///< RH second side trill key (2)                    "side_2"
     Side3,       ///< RH third side trill key (3)                     "side_3"
     Side4,       ///< RH fourth side key, Eb/Bb (4)                   "side_4"
-    RH1,         ///< RH first-finger hole with ring (1)              "rh1"
-    RH2,         ///< RH second-finger hole with ring (2)             "rh2"
+    RH1,         ///< RH first-finger hole (1)              "rh1"
+    RH2,         ///< RH second-finger hole (2)             "rh2"
     RHBSliver,   ///< RH B/F# sliver key (B)                          "rh_b_sliver"
-    RH3,         ///< RH third-finger hole with ring (3)              "rh3"
+    RH3,         ///< RH third-finger hole (3)              "rh3"
     RHE,         ///< RH pinky low E/B key (E)                        "rh_e"
     RHF,         ///< RH pinky low F/C key (F)                        "rh_f"
     RHFSharp,    ///< RH pinky low F#/C# key (F#)                     "rh_f_sharp"

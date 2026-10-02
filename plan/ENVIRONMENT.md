@@ -48,4 +48,12 @@ Core-only configure: `-DCLAR_BUILD_PLUGIN=OFF`. Faster local configure (optional
   cases fail, integration 17/17 fail, operational 4/4, alloc 1/1; perf skipped in Debug (fails at voice
   construction in Release).
 - Python venv from pins: OK. Red run: 24 fail / 2 pass (T-024a, T-024b guard tests, D-018).
-- Release build with plugin and pluginval: see `research/spikes/plugin_build.log`.
+- Release build with plugin (JUCE 9.0.3, LTO, `-j1`): OK (336 targets, ~35 min on 1 vCPU). Artefacts:
+  `build/plugin/ClarinetVST_artefacts/Release/VST3/Clarinet.vst3`, `.../Standalone/Clarinet`.
+- Plugin tests under `xvfb-run -a`: 3 cases, 2 fail (red), 1 guard passes (D-018).
+- Release `clar_perf_tests`: fails (red) at voice construction.
+- pluginval 1.0.4 strictness 10 on the stub VST3 under `xvfb-run -a`: SUCCESS (T-023 guard, D-018).
+- Known benign warnings: JUCE `-Woverloaded-virtual` on `processBlock(AudioBuffer<double>&…)` (fix with
+  `using juce::AudioProcessor::processBlock;` in the processor class — allowed, not a signature change) and the
+  JUCE splash-screen notice (drop `JUCE_DISPLAY_SPLASH_SCREEN=0` from plugin/CMakeLists.txt).
+- Details: `research/spikes/plugin_build.log`.

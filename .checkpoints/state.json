@@ -69,6 +69,17 @@
    "status": "done"
   }
  ],
- "commits": [],
- "updated_utc": "2026-10-02T12:06:55Z"
+ "commits": [
+  "383a258 checkpoint: 2E freeze, plan, handoff, pre-mortem",
+  "e56bd57 checkpoint: 2B (WIP) frozen tests drafted, research claims and rounds",
+  "816fc8b checkpoint: 2B.1 (WIP) skeleton, fingering fixture, spikes C1-C9"
+ ],
+ "updated_utc": "2026-10-02T12:24:19Z",
+ "red_verification": {
+  "cpp": "unit 18/18, integration 17/17, operational 4/4, alloc 1/1 fail; perf fails (Release)",
+  "plugin": "2 fail, 1 guard pass",
+  "python": "24 fail, 2 guard pass",
+  "pluginval_stub": "SUCCESS (guard)"
+ },
+ "status": "READY"
 }

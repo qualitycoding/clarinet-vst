@@ -22,10 +22,11 @@ TEST_CASE("T-018 layout has one valid shape per lever", "[T-018][unit]") {
             const float dy = (L[i].y + L[i].h / 2) - (L[j].y + L[j].h / 2);
             CHECK(dx * dx + dy * dy > 1e-4f);
         }
-    // Main finger holes are drawn as ring holes and run top-to-bottom LH1, LH2, LH3, RH1, RH2, RH3.
+    // Main finger holes are drawn as holes (ringed or plain) and run top-to-bottom LH1, LH2, LH3, RH1, RH2, RH3.
     const KeyId holes[] = {KeyId::LH1, KeyId::LH2, KeyId::LH3, KeyId::RH1, KeyId::RH2, KeyId::RH3};
     for (std::size_t i = 0; i < 6; ++i) {
-        CHECK(L[index(holes[i])].kind == KeyShapeKind::RingHole);
+        const auto k = L[index(holes[i])].kind;
+        CHECK((k == KeyShapeKind::RingHole || k == KeyShapeKind::PlainHole));
         if (i) CHECK(L[index(holes[i])].y > L[index(holes[i - 1])].y);
     }
 }

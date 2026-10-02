@@ -126,7 +126,7 @@ f0_ref, f0_syn, pitch_offset}` sorted by (midi, dynamics).
 (mouthpiece top, bell bottom) drawn with `juce::Path`: barrel, upper joint (LH holes, A and side-G♯ keys
 near LH1, LH Eb sliver beside LH2, LH pinky cluster C♯/E/F/F♯ below LH3), lower joint (RH holes, B sliver,
 side keys 1–4 to the right of RH1–RH2, RH pinky cluster E/F/F♯/G♯ below RH3), bell. A "rear" inset left of
-the upper joint shows the thumb ring hole and the register key. Ring holes drawn as circles with a ring;
+the upper joint shows the thumb ring hole and the register key. Finger holes drawn as circles (ring outline where the model has a ring; G-004 confirms);
 pressed levers filled `#F2B134`, others outlined `#8A8F98`. Below: written + concert note name and register
 label (chalumeau/throat/clarion/altissimo/“overblown”). Right 40 %: 9 rotary knobs + "Overblown fingering"
 toggle (APVTS attachments). Editor timer 60 Hz → `refreshFromProcessor()`.
@@ -172,7 +172,8 @@ usage line in `tools/render/main.cpp`. Changing a public signature requires `BLO
 
 ## Decision rules (if → then)
 - **Dependency fetch/install fails** → retry 3× with 30 s back-off; pinned SHA gone upstream → `BLOCKED.md` (never float a version).
-- **Compiler warning in core** → fix (S-018 requires warning-free core on all CI OSes).
+- **Compiler warning in core** → fix (S-018 requires warning-free core on all CI OSes). Plugin warnings listed in
+  plan/ENVIRONMENT.md are fixed in S-013 (the `using` declaration is not a signature change).
 - **T-008 f0 outside [180, 195] Hz** → compare the port sample-by-sample with `research/spikes/reed_spike.py::run()`
   driven by `colinotDSharpTable2()` and `ReedParams{}` for the first 1000 samples (max relative diff < 1e-6); fix the port; never change the window.
 - **T-030 Petersen f1/cutoff fails** → compare `input_impedance` with `research/spikes/tmm_spike.py::zin` on the same
