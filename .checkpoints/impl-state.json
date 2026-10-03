@@ -1,30 +1,13 @@
 {
- "step": "S-014",
- "status": "awaiting G-004",
- "utc": "2026-10-03T10:32:07Z",
+ "step": "S-018",
+ "status": "complete pending human decisions",
+ "utc": "2026-10-03T13:23:44Z",
  "done": [
-  "S-003",
-  "S-004",
-  "S-005",
-  "S-006",
-  "S-007",
-  "S-008",
-  "S-009",
-  "S-010",
-  "S-011",
-  "S-012",
-  "S-013",
-  "S-014",
-  "S-015"
+  "S-001..S-018 (S-016 as far as possible: 5 rounds)"
  ],
- "partial": {
-  "S-016": "dynamics-dependent brightness done (45/45 pitches pp<mf<ff on own renders); comparison with TinySOL pending (zenodo.org blocked in sandbox); G-003 bundle not built"
- },
  "open": {
-  "G-004": "human review of gates/G-004 (see GATE-G-004.md)",
-  "TEST_CHALLENGE": "T-001 constant 1872.4721 should be 1873.1307508272341; awaiting human approval",
-  "push": "no credential in sandbox; all commits local to impl/clarinet-v1",
-  "not_yet_done": "S-002 CI workflow + THIRD_PARTY_NOTICES (T-024c/d), S-017, S-018"
- },
- "next": "after G-004: S-002, S-016 (needs TinySOL), G-003, S-017, S-018"
+  "G-003": "listening sign-off (branch ci-g003, GATE-G-003.md)",
+  "TEST_CHALLENGE": "T-001 constant; T-022b attack criterion",
+  "merge": "to main is the human's decision (D-019)"
+ }
 }
