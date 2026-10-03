@@ -110,10 +110,16 @@ jobs:
           cat plugin.log pluginval.log 2>/dev/null | grep -E "FAILED|CHECK|REQUIRE|FAIL|rror|SUCCESS" | head -45 | while IFS= read -r l; do echo "::error::${l//%/%25}"; done
       - name: Audio Unit validation (macOS)
         if: runner.os == 'macOS'
+        shell: bash
         run: |
           mkdir -p ~/Library/Audio/Plug-Ins/Components
           cp -R build/plugin/ClarinetVST_artefacts/Release/AU/Clarinet.component ~/Library/Audio/Plug-Ins/Components/
-          auval -v aumu Clra Qcod
+          killall -9 AudioComponentRegistrar 2>/dev/null || true
+          auval -a 2>&1 | grep -i -E "Clra|qualitycoding|Clarinet" | head -5 | while IFS= read -r l; do echo "::notice::registry: ${l//%/%25}"; done
+          auval -v aumu Clra Qcod > auval.log 2>&1
+          rc=$?
+          tail -45 auval.log | while IFS= read -r l; do echo "::notice::auval: ${l//%/%25}"; done
+          exit $rc
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: clarinet-${{ matrix.os }}
@@ -152,20 +158,29 @@ jobs:
       - name: Write results.json for the gate bundle
         if: always()
         run: python -m tools.realism.compare_tinysol --render build/tools/render/clar_render --tinysol reference-data/tinysol --out results.json
-      - name: Publish results to the ci-results branch
+      - name: Realism summary (annotations)
         if: always()
         shell: bash
         run: |
-          mkdir -p /tmp/pub && cp -f results.json results.meta.json pytest.log /tmp/pub/ 2>/dev/null || true
+          grep -E "^E  |AssertionError|assert |passed|failed|Error" pytest.log | head -30 | while IFS= read -r l; do echo "::error::${l//%/%25}"; done
+      - name: Publish results to the ci-results branch
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          rm -rf /tmp/pub && mkdir -p /tmp/pub
+          cp -f results.json results.meta.json pytest.log /tmp/pub/
+          cd /tmp/pub
+          echo "commit ${GITHUB_SHA}" > SOURCE.txt
+          git init -q -b ci-results .
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git checkout --orphan ci-results-tmp
-          git rm -rf . -q
-          cp -f /tmp/pub/* . 2>/dev/null || true
-          echo "commit ${GITHUB_SHA}" > SOURCE.txt
           git add -A
-          git commit -q -m "realism results for ${GITHUB_SHA}"
-          git push -f origin HEAD:ci-results
+          git commit -q -m "realism results for ${GITHUB_SHA}" || echo "::error::commit failed"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -f origin ci-results 2>&1 | sed 's/x-access-token:[^@]*@/x-access-token:***@/' | while IFS= read -r l; do echo "::notice::${l//%/%25}"; done
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
