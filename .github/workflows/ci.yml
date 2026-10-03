@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: Apache-2.0
+# CI for clarinet-vst (plan/DECISIONS.md D-020). All actions are pinned to full commit SHAs (T-024).
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+
+jobs:
+  freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: bash tests/scripts/verify_freeze.sh
+
+  core:
+    needs: freeze
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Configure (core + tests only)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCLAR_BUILD_PLUGIN=OFF
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Tests (everything except performance)
+        run: ctest --test-dir build -C Release -LE perf --output-on-failure
+      - name: Performance test (T-016, Release only)
+        run: ctest --test-dir build -C Release -L perf --output-on-failure
+
+  python:
+    needs: freeze
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - run: pip install -r tools/requirements.txt
+      - name: Python tests (the TinySOL realism test runs in its own job)
+        run: python -m pytest tests/python --ignore=tests/python/test_realism_vs_tinysol.py
+      - name: Dependency audit
+        run: pip-audit -r tools/requirements.txt
+
+  plugin:
+    needs: [freeze, core]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Linux system packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libjack-jackd2-dev ladspa-sdk libfreetype-dev libfontconfig1-dev \
+            libx11-dev libxcomposite-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev \
+            libxi-dev libcurl4-openssl-dev xvfb
+      - name: Configure (with plugin)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Plugin tests (Linux, virtual display)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a ctest --test-dir build -C Release -R plugin --output-on-failure
+      - name: Plugin tests
+        if: runner.os != 'Linux'
+        run: ctest --test-dir build -C Release -R plugin --output-on-failure
+      - name: pluginval strictness 10 (Linux, virtual display)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a bash tests/scripts/run_pluginval.sh build/plugin/ClarinetVST_artefacts/Release/VST3/Clarinet.vst3
+      - name: pluginval strictness 10
+        if: runner.os != 'Linux'
+        shell: bash
+        run: bash tests/scripts/run_pluginval.sh build/plugin/ClarinetVST_artefacts/Release/VST3/Clarinet.vst3
+      - name: Audio Unit validation (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p ~/Library/Audio/Plug-Ins/Components
+          cp -R build/plugin/ClarinetVST_artefacts/Release/AU/Clarinet.component ~/Library/Audio/Plug-Ins/Components/
+          auval -v aumu Clra Qcod
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: clarinet-${{ matrix.os }}
+          path: |
+            build/plugin/ClarinetVST_artefacts/Release/VST3
+            build/plugin/ClarinetVST_artefacts/Release/Standalone
+            build/plugin/ClarinetVST_artefacts/Release/AU
+          retention-days: 14
+
+  realism:
+    needs: core
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - run: pip install -r tools/requirements.txt
+      - name: Build the offline renderer
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCLAR_BUILD_PLUGIN=OFF -DCLAR_BUILD_TESTS=OFF
+          cmake --build build --target clar_render --parallel 2
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: reference-data/tinysol
+          key: tinysol-${{ hashFiles('tools/realism/tinysol.py') }}
+      - name: T-022b realism against TinySOL
+        env:
+          CLAR_RENDER: build/tools/render/clar_render
+          TINYSOL_DIR: reference-data/tinysol
+        run: python -m pytest tests/python/test_realism_vs_tinysol.py
+      - name: Write results.json for the gate bundle
+        if: always()
+        run: python -m tools.realism.compare_tinysol --render build/tools/render/clar_render --tinysol reference-data/tinysol --out results.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: realism-results
+          path: |
+            results.json
+            results.meta.json
+          retention-days: 14
