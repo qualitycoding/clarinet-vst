@@ -1,0 +1,2 @@
+The 'real' clips in blind/ are excerpts of TinySOL (Cella et al., CC BY 4.0, https://zenodo.org/record/3685367),
+trimmed to the steady segment, level-matched and faded (modified). Synthetic clips and demos: this repository.
