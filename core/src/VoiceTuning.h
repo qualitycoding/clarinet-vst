@@ -33,8 +33,11 @@ inline constexpr double kKappaStart  = 0.6;        // mode-1 damping starts abov
 inline constexpr double kKappaMax    = 10.0;       // x10 first-mode bandwidth at o = 1 (C-033)
 inline constexpr double kKappaForced = 10.0;       // overblown-fingering switch (D-007)
 inline constexpr double kShelfOverblowDb = 3.0;    // brightness shelf boost at o = 1
-inline constexpr double kTiltHz = 600.0;          // Overblow tilt shelf corner (low enough to move the centroid of low notes)
+inline constexpr double kTiltHz = 600.0;          // tilt shelf corner floor (low enough to move the centroid of low notes)
+inline constexpr double kTiltRatio = 1.5;         // corner = max(floor, ratio * note frequency): keeps high notes' centroid movable
 inline constexpr double kTiltOverblowDb = 9.0;    // tilt shelf boost at o = 1
+inline constexpr double kDynTiltDb = 16.0;        // tilt shelf gain per unit of blowing level (louder = brighter, T-022b)
+inline constexpr double kDynTiltRef = 0.6;         // level at which the dynamics tilt is 0 dB (mf)
 inline constexpr double kNoiseOverblowGain = 1.0;  // breath-noise gain *= 1 + gain * o
 
 // --- output stage (D-014) ---

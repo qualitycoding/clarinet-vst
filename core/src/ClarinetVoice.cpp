@@ -159,7 +159,7 @@ struct ClarinetVoice::Impl {
 
     // ---- parameters and performance state ----
     VoiceParameters target;
-    double smOverblow = 0, smBright = 0.5, smNoise = 0.3, smHardness = 0.5, smVibDepth = 0, smGainDb = 0;
+    double smLevel = 0.6, smOverblow = 0, smBright = 0.5, smNoise = 0.3, smHardness = 0.5, smVibDepth = 0, smGainDb = 0;
     float velocity = 0.7f, breath = -1.0f, bend = 0.0f, aftertouch = 0.0f;
     int held[kMaxHeld] = {};
     int nHeld = 0;
@@ -192,7 +192,7 @@ struct ClarinetVoice::Impl {
     OnePoleHP hp, noiseHp, dcBlock;
     OnePoleLP noiseLp;
     Biquad lattice, bell, shelf, tilt;
-    double lastShelfDb = 1e9, lastTiltDb = 1e9;
+    double lastShelfDb = 1e9, lastTiltDb = 1e9, lastTiltHz = 0.0;
     std::uint32_t noiseState = 0x5A5A5A5Au;
     double flowAvg = 0.0;
 
@@ -256,7 +256,7 @@ struct ClarinetVoice::Impl {
         attackT = 0.0; inAttack = false; gSm = 0.0; relGain = 1.0; velGain = 1.0; quietT = 0.0;
         gammaStart = gammaEnd = 0.0; vibPhase = 0.0; flowAvg = 0.0;
         hp.reset(); noiseHp.reset(); noiseLp.reset(); dcBlock.reset();
-        lattice.reset(); bell.reset(); shelf.reset(); tilt.reset(); tilt.reset(); lastShelfDb = 1e9; lastTiltDb = 1e9;
+        lattice.reset(); bell.reset(); shelf.reset(); tilt.reset(); tilt.reset(); lastShelfDb = 1e9; lastTiltDb = 1e9; lastTiltHz = 0.0;
         for (auto& s : stages) s.reset();
         noiseState = 0x5A5A5A5Au;
     }
@@ -381,8 +381,11 @@ struct ClarinetVoice::Impl {
     void setShelf() noexcept {
         const double dB = tuning::kShelfDbMin + tuning::kShelfDbSpan * smBright + tuning::kShelfOverblowDb * smOverblow;
         if (std::fabs(dB - lastShelfDb) > 0.01) { shelf.highShelf(fs, tuning::kShelfHz, dB); lastShelfDb = dB; }
-        const double tiltDb = tuning::kTiltOverblowDb * smOverblow;
-        if (std::fabs(tiltDb - lastTiltDb) > 0.01) { tilt.highShelf(fs, tuning::kTiltHz, tiltDb); lastTiltDb = tiltDb; }
+        const double tiltDb = tuning::kTiltOverblowDb * smOverblow + tuning::kDynTiltDb * (smLevel - tuning::kDynTiltRef);
+        const double tiltHz = std::min(0.4 * fs, std::max(tuning::kTiltHz, tuning::kTiltRatio * currentBaseFreq()));
+        if (std::fabs(tiltDb - lastTiltDb) > 0.01 || std::fabs(tiltHz / std::max(lastTiltHz, 1.0) - 1.0) > 0.01) {
+            tilt.highShelf(fs, tiltHz, tiltDb); lastTiltDb = tiltDb; lastTiltHz = tiltHz;
+        }
     }
 
     void rebuildEffective() noexcept {
@@ -419,6 +422,8 @@ struct ClarinetVoice::Impl {
     void control(int n) noexcept {
         const double dt = static_cast<double>(n) / fs;
         const double a = 1.0 - std::exp(-dt / tuning::kSmoothSeconds);
+        const double level = breath >= 0.0f ? static_cast<double>(breath) : static_cast<double>(velocity); // blowing level 0..1
+        smLevel    += a * (level - smLevel);
         smOverblow += a * (static_cast<double>(target.overblow) - smOverblow);
         smBright   += a * (static_cast<double>(target.brightness) - smBright);
         smNoise    += a * (static_cast<double>(target.breathNoise) - smNoise);
