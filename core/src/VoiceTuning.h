@@ -36,7 +36,7 @@ inline constexpr double kShelfOverblowDb = 3.0;    // brightness shelf boost at 
 inline constexpr double kTiltHz = 600.0;          // tilt shelf corner floor (low enough to move the centroid of low notes)
 inline constexpr double kTiltRatio = 1.5;         // corner = max(floor, ratio * note frequency): keeps high notes' centroid movable
 inline constexpr double kTiltOverblowDb = 9.0;    // tilt shelf boost at o = 1
-inline constexpr double kDynTiltDb = 16.0;        // tilt shelf gain per unit of blowing level (louder = brighter, T-022b)
+inline constexpr double kDynTiltDb = 28.0;        // tilt shelf gain per unit of blowing level (louder = brighter, T-022b)
 inline constexpr double kDynTiltRef = 0.6;         // level at which the dynamics tilt is 0 dB (mf)
 inline constexpr double kNoiseOverblowGain = 1.0;  // breath-noise gain *= 1 + gain * o
 
@@ -50,6 +50,20 @@ inline constexpr double kNoiseGain    = 0.05;
 inline constexpr double kNoiseHighPassHz = 1000.0, kNoiseLowPassHz = 6000.0;
 inline constexpr double kDcBlockHz    = 5.0;
 inline constexpr double kOutputScale  = 0.9;       // pressure -> pre-tanh level
+
+// --- radiation EQ and even-harmonic asymmetry (S-016): fitted to the TinySOL clarinet recordings ---
+// Ten peaking bands whose gains are interpolated by blowing level between the pp / mf / ff anchors, and a
+// quadratic term y = x + a x^2 whose coefficient a is interpolated the same way (real clarinets radiate weak but
+// non-zero even harmonics; the bore model alone produces almost none).
+inline constexpr int    kEqBands = 10;
+inline constexpr double kEqHz[kEqBands] = {250, 450, 700, 1000, 1400, 2000, 2800, 4000, 5600, 8000};
+inline constexpr double kEqQ = 1.2;
+inline constexpr double kLevelAnchor[3] = {0.25, 0.6, 0.95};   // blowing level of pp, mf, ff (clar_render velocities)
+inline constexpr double kEqDb[3][kEqBands] = {   // fitted by S-016 (logs/S-016-fit.md): residual vs the TinySOL clarinet spectra
+    {0, 3.2, -7.5, -3.4, -10.8, -11.6, -4.3, -10.9, -20.8, -25},   // pp
+    {0, -0, 2.3, 2.2, 4.5, -1.8, 1.6, -7.3, -6, -18.8},   // mf
+    {0, 2.6, -0.6, -0.2, 6.3, 2.8, 2.9, -3.1, -5.2, -12.4}};  // ff
+inline constexpr double kEvenAsym[3] = {0.3, 0.3, 0.3};        // quadratic coefficient at pp / mf / ff
 
 // --- decimation ---
 inline constexpr double kPassbandFraction = 0.42;  // of the host rate
