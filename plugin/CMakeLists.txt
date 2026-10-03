@@ -22,7 +22,7 @@ target_sources(ClarinetVST PRIVATE
   src/PluginProcessor.cpp src/PluginEditor.cpp src/ClarinetView.cpp)
 target_include_directories(ClarinetVST PUBLIC src)
 target_compile_definitions(ClarinetVST PUBLIC
-  JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0 JUCE_DISPLAY_SPLASH_SCREEN=0)
+  JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
 target_link_libraries(ClarinetVST
   PUBLIC clar_core juce::juce_audio_utils juce::juce_audio_processors juce::juce_gui_basics
   PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)
@@ -32,3 +32,7 @@ if(CLAR_BUILD_TESTS)
   target_link_libraries(clar_plugin_tests PRIVATE ClarinetVST Catch2::Catch2)
   add_test(NAME plugin COMMAND clar_plugin_tests)
 endif()
+
+# G-004 screenshot bundle generator (S-014): renders every fingering with the real view.
+add_executable(clar_ui_snapshots ${CMAKE_SOURCE_DIR}/tools/render/snapshot_ui.cpp)
+target_link_libraries(clar_ui_snapshots PRIVATE ClarinetVST)
