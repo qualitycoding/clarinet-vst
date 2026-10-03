@@ -1,0 +1,42 @@
+{
+ "G3": {
+  "closed_overblown_cents_vs_12th": 4.1,
+  "label_closed": "R2",
+  "reghole_cents_vs_12th": 5.4,
+  "label_open": "R2",
+  "extreme_closed": "R1",
+  "extreme_open": "R2"
+ },
+ "C4": {
+  "closed_overblown_cents_vs_12th": -2.2,
+  "label_closed": "X699",
+  "reghole_cents_vs_12th": 3.5,
+  "label_open": "X701",
+  "extreme_closed": "X705",
+  "extreme_open": "X708"
+ },
+ "Bb4_throat": {
+  "L_m": 0.1612,
+  "nmodes": 5,
+  "cents_vs_target": {
+   "g0.5": -55.6,
+   "g0.7": -46.4
+  }
+ },
+ "C#6_alt": {
+  "L_m": 0.0412,
+  "nmodes": 3,
+  "cents_vs_target": {
+   "g0.5": -140.5,
+   "g0.7": -107.3
+  }
+ },
+ "C7_alt": {
+  "L_m": 0.02,
+  "nmodes": 3,
+  "cents_vs_target": {
+   "g0.5": -847.5,
+   "g0.7": -812.9
+  }
+ }
+}

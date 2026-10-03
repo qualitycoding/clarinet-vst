@@ -1,0 +1,85 @@
+{
+ "protocol": "planning-protocol v3.1",
+ "branch": "gen-20261002T075147Z-clarinet-vst-plan",
+ "profiles": {
+  "software": true,
+  "math": false,
+  "computational": false,
+  "publication": false
+ },
+ "mode_flags": {
+  "software.deploys": false
+ },
+ "environment": {
+  "subagents": false,
+  "models": [
+   "Opus (current)"
+  ],
+  "tier_substitutions": [
+   "Fable -> Opus (unavailable)",
+   "Haiku/Sonnet roles performed by Opus"
+  ],
+  "github": "push via human-supplied PAT (kept outside the repository)",
+  "sandbox": "Ubuntu 24.04, 1 vCPU, 3 GB RAM, allowlisted network (GitHub, PyPI, Ubuntu archive)"
+ },
+ "execution_mode_substitutions": [
+  "Phase 0.2 / 0.5 / 1 R5 / 2B.5 / 2E red verification / 3.6 cold reads / 4 pre-mortem: fresh-context agents unavailable; performed in-context (A-016)",
+  "Phase 3.6 Haiku mechanical check: research/spikes/coldread_check.py run by the same agent"
+ ],
+ "phases": [
+  {
+   "phase": "0.1",
+   "status": "done",
+   "note": "initial run halted for missing push credential; PAT supplied in the next turn"
+  },
+  {
+   "phase": "0.3",
+   "status": "done",
+   "note": "intake batch answered; defaults adopted"
+  },
+  {
+   "phase": "1",
+   "status": "done",
+   "rounds": 3,
+   "termination": "saturation (round 3: no new load-bearing claims)"
+  },
+  {
+   "phase": "2B",
+   "status": "done",
+   "tests": "T-001..T-032"
+  },
+  {
+   "phase": "2E",
+   "status": "done",
+   "red": "C++ 40/40 cases fail (perf skipped in Debug); Python 24 fail / 2 guard pass"
+  },
+  {
+   "phase": "3",
+   "status": "done"
+  },
+  {
+   "phase": "4",
+   "status": "done",
+   "premortem_rounds": 3,
+   "critical": 0,
+   "high": 0
+  },
+  {
+   "phase": "5",
+   "status": "done"
+  }
+ ],
+ "commits": [
+  "383a258 checkpoint: 2E freeze, plan, handoff, pre-mortem",
+  "e56bd57 checkpoint: 2B (WIP) frozen tests drafted, research claims and rounds",
+  "816fc8b checkpoint: 2B.1 (WIP) skeleton, fingering fixture, spikes C1-C9"
+ ],
+ "updated_utc": "2026-10-02T12:24:19Z",
+ "red_verification": {
+  "cpp": "unit 18/18, integration 17/17, operational 4/4, alloc 1/1 fail; perf fails (Release)",
+  "plugin": "2 fail, 1 guard pass",
+  "python": "24 fail, 2 guard pass",
+  "pluginval_stub": "SUCCESS (guard)"
+ },
+ "status": "READY"
+}

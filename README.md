@@ -12,18 +12,25 @@ A physically modelled B♭ clarinet instrument plugin (VST3 / Standalone, plus A
 
 ## Status
 
-Planning. The execution plan lives on the `gen-*-clarinet-vst-plan` branch (start with `HANDOFF.md`).
-Nothing is implemented on `main` yet.
+Implemented on the `impl/clarinet-v1` branch (not merged to `main` yet). See [REPORT.md](REPORT.md) for what works, the test
+results and the open items: the realism of the sound against real clarinet recordings is **not yet signed off**
+([GATE-G-003.md](GATE-G-003.md)), and two frozen tests await corrections ([TEST_CHALLENGE.md](TEST_CHALLENGE.md)).
+The plan is in `plan/` (start with `HANDOFF.md`).
 
 ## Building
 
-Not yet buildable from `main`. Once implemented: CMake ≥ 3.22, a C++20 compiler, and an internet
-connection for the pinned JUCE / Catch2 / nlohmann-json downloads:
+CMake ≥ 3.22, a C++20 compiler and an internet connection for the pinned JUCE / Catch2 / nlohmann-json downloads
+(Linux also needs the JUCE system packages, see `plan/ENVIRONMENT.md`):
 
 ```bash
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
+ctest --test-dir build --output-on-failure        # C++ tests
+python -m pytest tests/python                      # Python tests (the TinySOL test needs a download)
 ```
+
+Plugin bundles end up in `build/plugin/ClarinetVST_artefacts/Release/`. Use `-DCLAR_BUILD_PLUGIN=OFF` for the core library
+and tools only.
 
 ## Licence
 

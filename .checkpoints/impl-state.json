@@ -1,0 +1,13 @@
+{
+ "step": "S-018",
+ "status": "complete pending human decisions",
+ "utc": "2026-10-03T13:23:44Z",
+ "done": [
+  "S-001..S-018 (S-016 as far as possible: 5 rounds)"
+ ],
+ "open": {
+  "G-003": "listening sign-off (branch ci-g003, GATE-G-003.md)",
+  "TEST_CHALLENGE": "T-001 constant; T-022b attack criterion",
+  "merge": "to main is the human's decision (D-019)"
+ }
+}

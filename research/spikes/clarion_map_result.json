@@ -1,0 +1,114 @@
+{
+ "F3_bw10": {
+  "counts": {
+   "r1o": 0,
+   "r2": 6,
+   "other": 6,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   3.9,
+   3.9,
+   3.9,
+   3.9
+  ]
+ },
+ "F3_bw25": {
+  "counts": {
+   "r1o": 0,
+   "r2": 5,
+   "other": 7,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   3.9,
+   3.9,
+   3.9,
+   24.6
+  ]
+ },
+ "F3_c0.3": {
+  "counts": {
+   "r1o": 0,
+   "r2": 5,
+   "other": 7,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   3.9,
+   3.9,
+   3.9,
+   24.6
+  ]
+ },
+ "F3_bw10_c0.5": {
+  "counts": {
+   "r1o": 0,
+   "r2": 6,
+   "other": 6,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   3.9,
+   3.9,
+   3.9,
+   3.9
+  ]
+ },
+ "C4_bw10": {
+  "counts": {
+   "r1o": 0,
+   "r2": 7,
+   "other": 5,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   5.7,
+   5.7,
+   5.7,
+   5.7
+  ]
+ },
+ "C4_bw25": {
+  "counts": {
+   "r1o": 0,
+   "r2": 9,
+   "other": 3,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   5.7,
+   5.7,
+   5.7,
+   5.7
+  ]
+ },
+ "C4_c0.3": {
+  "counts": {
+   "r1o": 0,
+   "r2": 5,
+   "other": 7,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   5.7,
+   5.7,
+   5.7,
+   5.7
+  ]
+ },
+ "C4_bw10_c0.5": {
+  "counts": {
+   "r1o": 0,
+   "r2": 6,
+   "other": 6,
+   "eq": 0
+  },
+  "r2_cents_vs_twelfth": [
+   5.7,
+   5.7,
+   5.7,
+   5.7
+  ]
+ }
+}
