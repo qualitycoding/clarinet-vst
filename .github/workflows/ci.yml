@@ -102,6 +102,9 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          # GNU sha256sum prefixes the hash with a backslash when the path contains backslashes (Windows
+          # RUNNER_TEMP); the frozen script compares the raw output, so hand it a forward-slash path.
+          if [ "$RUNNER_OS" = "Windows" ]; then export RUNNER_TEMP="$(cygpath -m "$RUNNER_TEMP")"; fi
           bash tests/scripts/run_pluginval.sh build/plugin/ClarinetVST_artefacts/Release/VST3/Clarinet.vst3 2>&1 | tee pluginval.log
       - name: Failure summary (annotations)
         if: failure()
@@ -144,25 +147,23 @@ jobs:
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCLAR_BUILD_PLUGIN=OFF -DCLAR_BUILD_TESTS=OFF
           cmake --build build --target clar_render --parallel 2
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Restore the TinySOL download
+        id: tinysol-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: reference-data/tinysol
           key: tinysol-${{ hashFiles('tools/realism/tinysol.py') }}
-      - name: T-022b realism against TinySOL
+      - name: Compare with TinySOL (writes results.json first, so the numbers survive a failing test)
         env:
           CLAR_RENDER: build/tools/render/clar_render
           TINYSOL_DIR: reference-data/tinysol
-        run: |
-          set -o pipefail
-          python -m pytest tests/python/test_realism_vs_tinysol.py 2>&1 | tee pytest.log
-      - name: Write results.json for the gate bundle
-        if: always()
         run: python -m tools.realism.compare_tinysol --render build/tools/render/clar_render --tinysol reference-data/tinysol --out results.json
-      - name: Realism summary (annotations)
-        if: always()
-        shell: bash
-        run: |
-          grep -E "^E  |AssertionError|assert |passed|failed|Error" pytest.log | head -30 | while IFS= read -r l; do echo "::error::${l//%/%25}"; done
+      - name: Save the TinySOL download
+        if: always() && steps.tinysol-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: reference-data/tinysol
+          key: tinysol-${{ hashFiles('tools/realism/tinysol.py') }}
       - name: Publish results to the ci-results branch
         if: always()
         shell: bash
@@ -171,9 +172,10 @@ jobs:
         run: |
           set +e
           rm -rf /tmp/pub && mkdir -p /tmp/pub
-          cp -f results.json results.meta.json pytest.log /tmp/pub/
+          cp -f results.json results.meta.json /tmp/pub/
           cd /tmp/pub
           echo "commit ${GITHUB_SHA}" > SOURCE.txt
+          echo "Derived measurements of TinySOL (Cella et al., CC BY 4.0, https://zenodo.org/record/3685367); no audio." > ATTRIBUTION.txt
           git init -q -b ci-results .
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
@@ -181,6 +183,18 @@ jobs:
           git commit -q -m "realism results for ${GITHUB_SHA}" || echo "::error::commit failed"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -f origin ci-results 2>&1 | sed 's/x-access-token:[^@]*@/x-access-token:***@/' | while IFS= read -r l; do echo "::notice::${l//%/%25}"; done
+      - name: T-022b realism against TinySOL (frozen test)
+        env:
+          CLAR_RENDER: build/tools/render/clar_render
+          TINYSOL_DIR: reference-data/tinysol
+        run: |
+          set -o pipefail
+          python -m pytest tests/python/test_realism_vs_tinysol.py 2>&1 | tee pytest.log
+      - name: Realism summary (annotations)
+        if: always()
+        shell: bash
+        run: |
+          grep -E "^E  |AssertionError|passed|failed" pytest.log | head -12 | while IFS= read -r l; do echo "::error::${l//%/%25}"; done
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

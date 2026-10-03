@@ -44,6 +44,24 @@ def _render(render: str, note: int, velocity: float, seconds: float, out: Path) 
     return x
 
 
+def _diagnostics(ref: np.ndarray, syn: np.ndarray, f0r: float, f0s: float) -> dict:
+    """Extra per-note data used to calibrate the synthesis (not read by T-022b): harmonic levels (dB re the
+    strongest of H1..H12, steady segment), attack times, steady-state RMS (dBFS) and the first 1.2 s of the
+    10 ms RMS envelope (dB re its maximum, sampled every 20 ms)."""
+    out: dict = {}
+    for tag, x, f0 in (("ref", ref, f0r), ("syn", syn, f0s)):
+        seg = metrics.steady_segment(x, FS)
+        nh = int(min(12, math.floor(0.45 * FS / f0)))
+        out[f"harm_{tag}_db"] = [round(float(v), 1) for v in metrics.harmonic_levels_db(seg, FS, f0, nh)]
+        out[f"attack_{tag}_s"] = round(metrics.attack_time_s(np.asarray(x, dtype=np.float64), FS), 4)
+        out[f"rms_{tag}_dbfs"] = round(float(20 * np.log10(max(np.sqrt(np.mean(seg ** 2)), 1e-9))), 1)
+        env = metrics._envelope(np.asarray(x, dtype=np.float64), FS)
+        step = int(0.02 * FS)
+        e = env[: int(1.2 * FS) : step]
+        out[f"env_{tag}_db"] = [round(float(20 * np.log10(max(v / max(env.max(), 1e-12), 1e-6))), 1) for v in e]
+    return out
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="compare_tinysol")
     ap.add_argument("--render", required=True, help="path to the built clar_render executable")
@@ -86,10 +104,12 @@ def main(argv: list[str] | None = None) -> int:
             except ValueError:
                 excluded["analysis_failed"] += 1
                 continue
-            rows.append({"midi": concert, "dynamics": n.dynamics, "harm_mad_db": res["harm_mad_db"],
-                         "centroid_ratio": res["centroid_ratio"], "attack_ratio": res["attack_ratio"],
-                         "centroid_syn_hz": centroid_syn, "f0_ref": res["f0_ref"], "f0_syn": res["f0_syn"],
-                         "pitch_offset": offset})
+            row = {"midi": concert, "dynamics": n.dynamics, "harm_mad_db": res["harm_mad_db"],
+                   "centroid_ratio": res["centroid_ratio"], "attack_ratio": res["attack_ratio"],
+                   "centroid_syn_hz": centroid_syn, "f0_ref": res["f0_ref"], "f0_syn": res["f0_syn"],
+                   "pitch_offset": offset}
+            row.update(_diagnostics(ref[: int(seconds * FS)], syn, res["f0_ref"], res["f0_syn"]))
+            rows.append(row)
     rows.sort(key=lambda r: (r["midi"], ("pp", "mf", "ff").index(r["dynamics"])))
     out = Path(args.out)
     out.write_text(json.dumps(rows, indent=1) + "\n")
