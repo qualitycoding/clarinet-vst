@@ -146,7 +146,7 @@ jobs:
       - name: Build the offline renderer
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCLAR_BUILD_PLUGIN=OFF -DCLAR_BUILD_TESTS=OFF
-          cmake --build build --target clar_render --parallel 2
+          cmake --build build --target clar_render clar_demo --parallel 2
       - name: Restore the TinySOL download
         id: tinysol-cache
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -183,6 +183,26 @@ jobs:
           git commit -q -m "realism results for ${GITHUB_SHA}" || echo "::error::commit failed"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -f origin ci-results 2>&1 | sed 's/x-access-token:[^@]*@/x-access-token:***@/' | while IFS= read -r l; do echo "::notice::${l//%/%25}"; done
+      - name: Build the G-003 listening bundle
+        if: always()
+        run: python -m tools.realism.make_g003 --render build/tools/render/clar_render --demo build/tools/render/clar_demo --tinysol reference-data/tinysol --results results.json --out g003
+      - name: Publish the G-003 bundle to the ci-g003 branch
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          [ -d g003 ] || { echo "::error::no g003 directory"; exit 0; }
+          rm -rf /tmp/pubg && cp -r g003 /tmp/pubg && cd /tmp/pubg
+          echo "commit ${GITHUB_SHA}" > SOURCE.txt
+          git init -q -b ci-g003 .
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "G-003 bundle for ${GITHUB_SHA}" || echo "::error::commit failed"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -f origin ci-g003 2>&1 | sed 's/x-access-token:[^@]*@/x-access-token:***@/' | while IFS= read -r l; do echo "::notice::${l//%/%25}"; done
       - name: T-022b realism against TinySOL (frozen test)
         env:
           CLAR_RENDER: build/tools/render/clar_render
