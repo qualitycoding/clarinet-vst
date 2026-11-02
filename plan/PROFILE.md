@@ -24,3 +24,7 @@ artifacts only). `math.exploration` n/a.
 HANDOFF.md, plan/{PROFILE,PLAN,ASSUMPTIONS,DECISIONS,GATES,ENVIRONMENT,TRACEABILITY}.md,
 research/{QUESTIONS.md,claims.json,SOURCES.md,rounds/,spikes/}, tests/, tests/FROZEN_MANIFEST.sha256,
 premortem/{round-N.md,RISK_REGISTER.md}, .checkpoints/state.json.
+
+## v3.9 addendum profile confirmation
+
+Active profiles unchanged; `software` active; `software.deploys` unchanged. Target protocol v3.9.

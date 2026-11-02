@@ -1,5 +1,7 @@
 # HANDOFF — clarinet-vst v1 (implementing agent: start here)
 
+
+Reading order: `HANDOFF.md` → `ADDENDUM-PLAN-V3.9.md` → `plan/PLAN.md`. Later protocol amendments take precedence only where the gap ledger says so.
 **Purpose.** Build a B♭ clarinet physical-model instrument plugin (VST3/AU/Standalone) whose UI draws a
 Boehm clarinet and highlights the levers (keys, rings, holes) of the note being played, with an **Overblow**
 knob and an **Overblown fingering** switch, and prove realism objectively and by human sign-off. You execute
