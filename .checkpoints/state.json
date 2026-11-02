@@ -81,5 +81,22 @@
   "python": "24 fail, 2 guard pass",
   "pluginval_stub": "SUCCESS (guard)"
  },
- "status": "READY"
+ "status": "READY",
+ "execution_context": {
+  "objective": "v3.9 planning addendum amendment (planning-only)",
+  "protocol": "v3.9",
+  "protocol_commit": "ef99285404419153dd5f9aaae14f14bb53604a62",
+  "implementation_branch": "impl-v39-addendum-20261102",
+  "amended_on": "2026-11-02"
+ },
+ "active_variables": {
+  "baseline": "v3.1",
+  "source_tip": "dc06a811adbb15722694083be3fbe0f1267afe00",
+  "audited_commit": "74fade60cbbb0eec9b34ca4b4d15133b30d823f0"
+ },
+ "artifacts": {
+  "ADDENDUM-V3.9-STATUS.md": "pending-write"
+ },
+ "lesson_store": "qualitycoding/Lessons",
+ "knowledge_store": "qualitycoding/knowledge"
 }
