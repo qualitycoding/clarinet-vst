@@ -62,3 +62,18 @@ S-002 T-024 · S-003 T-001..T-005, T-018 · S-004 T-022a, T-027 · S-005 T-007, 
 S-007 T-006, T-031, T-026 (structure) · S-008 T-014, T-015, T-020, T-021, T-025 · S-009 T-010, T-026 ·
 S-010 T-019 · S-011 T-011, T-012, T-013 · S-012 T-017 · S-013/S-014 T-029 · S-016 T-022b, T-032 ·
 S-017 T-016, T-023, T-029 (3 OSes) · S-018 all.
+
+## v3.9 addendum traceability (2026-11-02)
+
+| Requirement | Artifact | Step | Verification |
+|---|---|---|---|
+| Gap ledger per planning root | `plan/ADDENDUM-V3.9-GAP.md` | S-ADD-001 | `v39_addendum_verify.py final` |
+| Planning-only scope freeze | D-900 in `plan/DECISIONS.md` | S-ADD-001 | verifier + retrospective |
+| Mutation three-tier priced CI, aggregator, report score gate | `reviews/MUTATION.md` | S-ADD-080 | verifier + first CI run (pending in CI) |
+| Split lesson/knowledge stores | G-003 in `plan/GATES.md`, `.checkpoints/state.json` | S-ADD-010/S-ADD-060 | verifier |
+| Full-context checkpoints / zero-context resume | `.checkpoints/state.json` | S-ADD-020 | verifier |
+| Assumption audit, reviews | `premortem/ASSUMPTION_AUDIT.md`, `reviews/` | S-ADD-030 | verifier |
+| Honest verification, deviations | `DEVIATIONS.md`, `EXECUTION_LOG.md` | S-ADD-040 | verifier |
+| Ephemeral protections | `plan/ENVIRONMENT.md` | S-ADD-050 | verifier |
+| CI platform matrix | `plan/CI-MATRIX.md` | S-ADD-070 | cold read |
+| Cold read / pre-mortem | this file, `premortem/RISK_REGISTER.md` | S-ADD-090 | verifier |

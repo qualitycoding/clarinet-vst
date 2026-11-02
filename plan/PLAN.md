@@ -1,3 +1,5 @@
+# PLAN — protocol v3.9 (upgraded by ADDENDUM-PLAN-V3.9.md)
+
 <!-- STATUS: planning complete 2026-10-02 UTC. Branch: gen-20261002T075147Z-clarinet-vst-plan. Profile: software (deploys=false). Steps S-001..S-018; gates G-004, G-003 (G-001/G-002 N/A). Frozen tests: 28 files in tests/FROZEN_MANIFEST.sha256, red verified except D-018 guards. Open risks (Medium): R-001, R-002, R-003, R-004, R-008, R-015. Substitutions: single agent, in-context reviews (A-016). -->
 # Execution plan — clarinet-vst v1
 
@@ -299,3 +301,12 @@ Every step is idempotent: re-running it after partial completion is safe; comple
 - On failure: default rule.
 - Gate: none (merging to `main` is the human's decision, D-019)
 - Relevant decisions/claims: all
+
+
+## Amendment closing/review steps (v3.9)
+
+- **S-000** — Intake and environment probe (recorded at plan intake).
+- **S-REVIEW** — Traditional code review before packaging/release.
+- **S-ADVERSARIAL** — Adversarial review of security/correctness claims.
+- **S-RETRO** — Retrospective: review execution log, deviations and gate records.
+- **S-KNOW** — Knowledge/lessons: record classified lessons and knowledge items; G-003 controls publication to the Lessons and knowledge stores.

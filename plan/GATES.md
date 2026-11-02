@@ -37,3 +37,11 @@ Risk-mitigation gates (Phase 4.4):
   `proceed-with-rescope: <text>` | `stop`.
 - **Branches:** proceed → S-017; iterate → S-016 with notes, then G-003 again; rescope → record A-0xx,
   adjust only non-frozen constants/scope, continue S-017; stop → final report, halt.
+
+## G-003 — split learning stores (v3.9)
+
+Lessons and knowledge are pushed to **separate** stores: the `Lessons`
+repository and the `knowledge` repository. G-003 requests the destinations at
+plan close; **do-not-push** either store until human sign-off; the documented
+bundle fallback applies when sign-off is withheld. Store publication never holds
+up the repository amendment's completion record.

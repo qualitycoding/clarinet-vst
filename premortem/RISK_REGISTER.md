@@ -18,3 +18,14 @@
 | R-014 | Output stage destroys the odd-harmonic fingerprint. | low | medium | Low | T-032, decision rule | implementer |
 | R-015 | T-013 break criterion not met. | medium | low | Medium | decision rule (κ₁ 20, earlier start) | implementer |
 | R-016 | JUCE licence obligations on binaries. | low | medium | Low | no distribution (A-013, G-002 N/A) | human |
+
+## v3.9 addendum risk round (2026-11-02)
+
+| Risk | Severity | Mitigation | Status |
+|---|---|---|---|
+| No independent fresh-context review (D-906) | High | Recorded substitution; independent review scheduled before product execution resumes | Open |
+| CI-dependent checks (mutation pricing/floor, matrix jobs) not locally executable (D-905) | Medium | CI is the authoritative venue; estimates labelled; post-conditions gate in CI | Open |
+| Lesson/knowledge store push pending G-003 sign-off | Low | Bundle fallback documented; does not block amendment completion | Open |
+
+Pre-mortem rounds repeated to zero Critical risks; High risk retained honestly
+with owner and mitigation.
