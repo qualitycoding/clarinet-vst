@@ -12,18 +12,37 @@ A physically modelled B♭ clarinet instrument plugin (VST3 / Standalone, plus A
 
 ## Status
 
-Planning. The execution plan lives on the `gen-*-clarinet-vst-plan` branch (start with `HANDOFF.md`).
-Nothing is implemented on `main` yet.
+`main` contains only the licence and this file. The plugin is implemented on the **`impl/clarinet-v1`**
+branch, which has not been merged. Its `REPORT.md` is the detailed status. In short:
+
+- Built: a physical model (single-reed exciter on a modal bore generated offline, 45 resonators covering
+  written E3 to C7), a drawn Boehm clarinet that highlights the fingering, the Overblow control and
+  overblown-fingering switch, monophonic legato, breath/velocity, pitch bend and aftertouch vibrato.
+  Formats are VST3 and Standalone on Windows, macOS and Linux, plus AU on macOS.
+- Tuning, real-time safety, state save/restore and the supply-chain checks are met. CI builds the plugin
+  on all three systems.
+- **Not signed off:** realism. Against 126 real clarinet notes (TinySOL), the model's harmonic error
+  is about 9 dB on average, against a 6 dB target, so the realism test fails and the sound has not been
+  accepted by ear (gate G-003).
+- Two frozen tests need corrections: one expected pitch constant is wrong, and the realism attack
+  criterion is infeasible (`TEST_CHALLENGE.md` on that branch).
+
+The planning documents are on `gen-20261002T075147Z-clarinet-vst-plan` (start with `HANDOFF.md`).
 
 ## Building
 
-Not yet buildable from `main`. Once implemented: CMake ≥ 3.22, a C++20 compiler, and an internet
-connection for the pinned JUCE / Catch2 / nlohmann-json downloads:
+Build from `impl/clarinet-v1`, not `main`. You need CMake 3.22 or later, a C++20 compiler and an
+internet connection for the pinned JUCE, Catch2 and nlohmann-json downloads (Linux also needs the JUCE
+system packages; see `plan/ENVIRONMENT.md` on that branch):
 
 ```bash
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+git checkout impl/clarinet-v1
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
+ctest --test-dir build --output-on-failure
 ```
+
+Plugin bundles end up in `build/plugin/ClarinetVST_artefacts/Release/`.
 
 ## Licence
 
